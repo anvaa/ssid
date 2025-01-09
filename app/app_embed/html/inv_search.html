@@ -1,0 +1,61 @@
+{{ template "inv_menu.html" . }}
+<div class="neworedit-header">Search</div>
+<div class="flex-container">
+    <div class="lst-box">
+        <table>
+            <tr>
+                <td>
+                    <select id="_locsel" class="edit-select" onchange="itmSearch('')">
+                        <option value="">Sort by Location</option>
+                        {{ if .locs }}
+                        {{ range .locs }}
+                        <option value="{{ .Id }}">{{ .Locname }}</option>
+                        {{ end }}
+                        {{ end }}
+                    </select>
+                </td>
+                <td>
+                    
+                    <select id="_typsel" class="edit-select" onchange="itmSearch('')">
+                        <option value=""> Sort by Type</option>
+                        {{ if .typs }}
+                        {{ range .typs }}
+                        <option value="{{ .Id }}">{{ .Typname }}</option>
+                        {{ end }}
+                        {{ end }}
+                    </select>
+                </td>
+                <td>
+                    <select id="_mansel" class="edit-select" onchange="itmSearch('')">
+                        <option value="">Sort by Manufact</option>
+                        {{ if .mans }}
+                        {{ range .mans }}
+                        <option value="{{ .Id }}">{{ .Manname }}</option>
+                        {{ end }}
+                        {{ end }}
+                    </select>
+                </td>
+                <td>
+                    
+                    <select id="_stasel" class="edit-select" onchange="itmSearch('')">
+                        <option value="">Sort by Status</option>
+                        {{ if .stats }}
+                        {{ range .stats }}
+                        <option value="{{ .Id }}">{{ .Staname }}</option>
+                        {{ end }}
+                        {{ end }}
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-left: 10px;padding-top: 8px;">
+        <input type="button" id="_prntbtn" class="lst-btn" value="Export to csv" onclick="itmSearch('PRINT')">
+    </div>
+</div>
+<div id="div_searchresult" style="border: 0px;"></div>
+<script>
+    setFocus();
+</script>
+
+{{ template "footer.html" . }}

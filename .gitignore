@@ -1,0 +1,22 @@
+
+# general files
+*.csv
+
+# air generated files
+.air.toml
+/tmp
+tmp/*
+
+# app generated files #
+app.*
+runme.sh
+/static
+/data
+
+*.db
+*.yaml
+
+
+
+
+

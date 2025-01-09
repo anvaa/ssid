@@ -1,0 +1,41 @@
+
+<div class="flex-container">
+    <div class="lst-box" style="border: 0px;margin-left: 0px;">
+        <div class="container">
+            <table class="lst-table">
+                <tr>
+                    <th class="th-itmlst">Id ({{ .c_itms }})</th> 
+                    <th class="th-itmlst">Location</th>
+                    <th class="th-itmlst">Type</th>
+                    <th class="th-itmlst">Serial</th>
+                    <th class="th-itmlst">Description</th>
+                    <th class="th-itmlst">Price</th>
+                    <th class="th-itmlst">Date</th>
+                    <th class="th-itmlst">Status</th>
+                    <th></th>
+                </tr>
+                {{ if .itmsw }}
+                {{ range .itmsw }}
+                <tr>
+                    <td class="td-itmlst">{{ .Itmid }}</td>
+                    <td class="td-itmlst">{{ .Loc }}</td>
+                    <td class="td-itmlst">{{ .Typ }}</td>
+                    <td class="td-itmlst">{{ .Serial }}</td>
+                    <td class="td-itmlst">{{ .Description }}</td>
+                    <td class="td-itmlst">{{ .Price }}</td>
+                    <td class="td-itmlst">{{ .Updtime }}</td>
+                    <td class="td-itmlst">{{ .Sta }}</td>
+                    <td style="vertical-align: middle;padding: 1px;">
+                        <div onclick="itmQuickSearch('ID','{{ .Itmid }}')">
+                            <img src="/media/info.png" class="menu-img">
+                        </div>
+                    </td>
+                    <input type="hidden" id="itmid{{ .Itmid }}" value="{{ .Itmid }}" />
+                </tr>
+                {{ end }}
+                {{ end }}
+            </table>
+        </div>
+    </div>
+</div>
+

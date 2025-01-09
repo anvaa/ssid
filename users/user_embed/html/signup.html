@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Signup</title>
+    <link href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/index.js"></script>
+  </head>
+  <input type="hidden" id="_pageid" value="signup" />
+  <div class="flex-container">
+  
+    <div>
+      <div class="configbox">
+      <form id="signupform">
+        <table>
+          <tr>
+            <td class="header-text">Signup</td>
+          </tr>
+          <tr>
+            <td style="text-align: right;">
+              <label for="_email">Email</label>
+              <input type="email" id="_email" required />
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: right;">
+              <label for="_password">Password</label>
+              <input type="password" id="_password" required />
+            </td>
+          </tr>
+          <tr>
+              <td style="text-align: right;">
+                <label for="_password2">Confirm password</label>
+                <input type="password" id="_password2" required />
+              </td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">
+              <label for="_btn" style="color: white;">Confirm password</label>
+              <input type="button" class="loginbtn" value="Signup" onclick="signupClick()" />
+            </td>
+          </tr>
+        </table>
+      </form>
+      <div id="_message" class="errmessage"></div>
+      </div>
+      <div class="info-text">
+        If you have an account you can login
+        <a href="/login" class="info-text">here</a>
+      </div>
+    </div>
+    <div></div>
+  </div>
+  
+</body>
+</html>

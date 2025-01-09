@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <link href="/css/bootstrap.min.css">
+        <title>{{ .title }}</title>
+    </head>
+
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+            
+        }
+        a:hover {
+            font-weight: bold;
+        }
+
+        .timetxt {
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .timetxt:hover {
+            font-weight: bold;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+
+<body>
+    <div style="display: flex; justify-content: space-between; font-family: monospace;">
+        <div style="vertical-align: middle;">
+            {{ if .url }}
+            <a href="{{ .url }}">⬅ back</a>
+            {{ else }}
+            <a href="/">⬅ back</a>
+            {{ end }}
+        </div>
+        <div style="text-align: center; ">
+            {{ .loctime }}
+        </div>
+        <div style="text-align: right;">
+            <a href="https://raadig.no" target="_blank">raadig.no</a>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <div>
+            <div style="font-size: 24px; font-weight: bold;">
+                {{ .info.AppName }} v{{ .info.Version }}
+            </div>
+            <div style="font-size: 14px; font-weight: bold;">
+                {{ .info.AppNameLong }}
+            </div>
+            <br>
+            <div style="font-size: 18px; font-weight: bold;">
+                {{ .info.Company }}
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="timetxt">{{ .apptime }}</div><br>
+    </div>
+    </div>
+    <div>
+        
+</body>
+</html>

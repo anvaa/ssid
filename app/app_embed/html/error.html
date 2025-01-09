@@ -1,0 +1,16 @@
+{{ template "header.html" . }}
+
+<div class="error-flex-container">
+    <div class="errorbox">
+        <table>
+            <tr>
+                <td>
+                    <img src="/media/error.png" class="error-img">
+                </td>
+                <td>
+                    <div class="error-header">Error</div>
+                    <div class="error-msg">{{.msg}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
