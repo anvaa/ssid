@@ -14,6 +14,7 @@ var StaticDir string
 var AssetsDir string
 var ReportsDir string
 var QRImgDir string
+var BarImgDir string
 
 var fileName string = "srv.yaml"
 var fileType string = "yaml"
@@ -32,7 +33,8 @@ func WriteConfigFile(app_path string) error {
 	AssetsDir = "assets"
 	StaticDir = "static"
 	ReportsDir = AssetsDir + "/reports"
-	QRImgDir = AssetsDir + "/qrimg"
+	QRImgDir = AssetsDir + "/qr_img"
+	BarImgDir = AssetsDir + "/bar_img"
 
 	srvConf.SetDefault("server_port", 5005)
 	srvConf.SetDefault("gin_mode", "release")

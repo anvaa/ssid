@@ -22,7 +22,8 @@ func App_Api(r *gin.Engine) *gin.Engine {
 	r.Static("/media", static_dir+"/media")
 
 	r.Static("/assets", srv_conf.AssetsDir)
-	r.Static("/qrimg", srv_conf.QRImgDir)
+	r.Static("/qr_img", srv_conf.QRImgDir)
+	r.Static("/bar_img", srv_conf.BarImgDir)
 
 	r.LoadHTMLGlob(static_dir+"/html/*.html")
 	

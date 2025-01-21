@@ -12,6 +12,10 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/skip2/go-qrcode"
+	barcode "github.com/makiuchi-d/gozxing"
+	"github.com/makiuchi-d/gozxing/oned"
+
+	"image/png"
 )
 
 func Itm_AddUpd(newitm app_models.Items) error {
@@ -122,8 +126,6 @@ func Itm_MakeQRCode(itm app_models.Items) error {
 	// Generate QR code for an item
 
 	imgpath := fmt.Sprintf("%s/%d.png", srv_conf.QRImgDir, itm.Itmid)
-
-	// delete existing QR code
 	if filefunc.IsExists(imgpath) {
 		err := filefunc.DeleteFile(imgpath)
 		if err != nil {
@@ -132,7 +134,7 @@ func Itm_MakeQRCode(itm app_models.Items) error {
 	}
 
 	// Create the QR code data
-	qrtxt := fmt.Sprintf("ID %d\nSNR %s\n%s", itm.Itmid, itm.Serial, Typ_GetTypName(itm.Typid))
+	qrtxt := fmt.Sprintf("%s\nSN %s\nID %d", Typ_GetTypName(itm.Typid), itm.Serial, itm.Itmid)
 
 	qrcx, err := qrcode.New(qrtxt, qrcode.Medium)
 	if err != nil {
@@ -145,6 +147,36 @@ func Itm_MakeQRCode(itm app_models.Items) error {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
+	err = Itm_MakeBARCode(itm.Serial, itm.Itmid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func Itm_MakeBARCode(itm_serial string, itmid any) error {
+	// Generate a barcode for an item
+	imgpath := fmt.Sprintf("%s/%d.png", srv_conf.BarImgDir, itmid)
+	if filefunc.IsExists(imgpath) {
+		err := filefunc.DeleteFile(imgpath)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Write the barcode to a file
+	file, _ := filefunc.CreateFile(imgpath)
+	defer file.Close()
+	
+	writer := oned.NewCode128Writer()
+	barCode, err := writer.Encode(itm_serial, barcode.BarcodeFormat_CODE_128, 200, 35, nil)
+	if err != nil {
+    	return err
+	}
+	
+	png.Encode(file, barCode)
 
 	return nil
 }

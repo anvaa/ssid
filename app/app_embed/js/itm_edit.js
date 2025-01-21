@@ -93,11 +93,11 @@ function itmDelete(itmid) {
     xhr.send();
 }
 
-function itmPrintQrClick() {
+function imgPrint(prtype) {
     const itmid = document.getElementById("_itmid0").value;
-    const img = document.getElementById("_qrimg").src;
+    const img = document.getElementById(prtype).src;
     const win = window.open("", "_blank");
-
+    
     const printpage = `
         <div style='width: 100%; text-align: center;'>
             <img src='${img}' style='width: 100%; margin-bottom: 0px;' />

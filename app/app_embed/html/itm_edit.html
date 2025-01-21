@@ -11,46 +11,26 @@
         <table>
             <tr>
                 <td>
-                    <select id="_locsel" class="edit-select" onchange="isEdit()"  >
+                    <select id="_locsel" class="edit-select" onchange="isEdit()">
                         <option>Select Location</option>
-                        {{ if .locs }}
-                            {{ range .locs }}
-                            {{ if eq .Locname $.itmw.Loc }}
-                                <option value="{{ .Id }}" selected>{{ .Locname }}</option>
-                            {{ else }}
-                                <option value="{{ .Id }}">{{ .Locname }}</option>
-                            {{ end }}
-                            {{ end }}
+                        {{ range .locs }}
+                            <option value="{{ .Id }}" {{ if eq .Locname $.itmw.Loc }}selected{{ end }}>{{ .Locname }}</option>
                         {{ end }}
                     </select>
-                    
                 </td>
                 <td>
-                    
                     <select id="_typsel" class="edit-select" onchange="isEdit()">
                         <option>Select Type</option>
-                        {{ if .typs }}
                         {{ range .typs }}
-                        {{ if eq .Typname $.itmw.Typ }}
-                                <option value="{{ .Id }}" selected>{{ .Typname }}</option>
-                            {{ else }}
-                            <option value="{{ .Id }}">{{ .Typname }}</option>
-                        {{ end }}
-                        {{ end }}
+                            <option value="{{ .Id }}" {{ if eq .Typname $.itmw.Typ }}selected{{ end }}>{{ .Typname }}</option>
                         {{ end }}
                     </select>
                 </td>
                 <td>
                     <select id="_mansel" class="edit-select" onchange="isEdit()">
                         <option>Select Manufact</option>
-                        {{ if .mans }}
                         {{ range .mans }}
-                        {{ if eq .Manname $.itmw.Man }}
-                                <option value="{{ .Id }}" selected>{{ .Manname }}</option>
-                            {{ else }}
-                            <option value="{{ .Id }}">{{ .Manname }}</option>
-                        {{ end }}
-                        {{ end }}
+                            <option value="{{ .Id }}" {{ if eq .Manname $.itmw.Man }}selected{{ end }}>{{ .Manname }}</option>
                         {{ end }}
                     </select>
                 </td>
@@ -64,14 +44,12 @@
                     <div class="div-header">Price</div>
                     <input type="text" id="_itmprice0" class="edit-text" value="{{ .itmw.Price }}" style="width: 80px;" maxlength="20" onkeydown="isEdit()" />
                 </td>
-                
             </tr>
             <tr>
                 <td colspan="3">
                     <div class="div-header">Description</div>
                     <textarea id="_itmdesc0" maxlength="255" class="edit-desc" onkeydown="isEdit()">{{ .itmw.Description }}</textarea>
                 </td>
-            
             </tr>
             <tr>
                 <td>
@@ -79,48 +57,57 @@
                     <input type="hidden" id="_itmuid0" value="{{ .user.Id }}" />
                     <input type="button" value="Update" class="lst-btn" onclick="itmAddUpdate()" />
                 </td>
-                <td style="width: auto;"></td>
+                <td></td>
                 <td>
                     <input type="button" value="Delete" class="lst-btn-del" onclick="itmDelete('{{ .itmw.Itmid }}')" />
                 </td>
-                
             </tr>
         </table>
-    
-        <div class="flex-container" >
-            <div>
+        <div class="flex-container">
+
+            <div class="div-qr">
                 <table>
                     <tr>
+                        <td>   
+                            <input type="hidden" id="_qrimg0" value="/qr_img/{{ .itmw.Itmid }}.png" />
+                            <img id="_qrimg" src="/qr_img/{{ .itmw.Itmid }}.png" class="qr-img" /> 
+                        </td>
                         <td>
-                            <div class="div-qr">
-                                <input type="hidden" id="_qrimg0" value="/qrimg/{{ .itmw.Itmid }}.png" />
-                                <img id="_qrimg" src="/qrimg/{{ .itmw.Itmid }}.png" class="qr-img" />
+                            <div>
+                                <div class="td-hist" style="border: 0px;">{{ .itmw.Typ }}</div>
+                                <div class="td-hist" style="border: 0px;">SNR {{ .itmw.Serial }}</div>
+                                <div class="td-hist" style="border: 0px;">ID {{ .itmw.Itmid }}</div>
                             </div>
                         </td>
                     </tr>
-                    <tr>            
+                    <tr>
                         <td style="text-align: center;">
-                            <input type="button" value="Print" onclick="itmPrintQrClick()" class="lst-btn" />
+                            <!-- <input type="hidden" id="_qrimg0" value="/qr_img/{{ .itmw.Itmid }}.png" /> -->
+                            <input type="button" value="Print QR" onclick="imgPrint('_qrimg')" class="lst-btn" />
                         </td>
                     </tr>
                 </table>
             </div>
-            <div>
-                <div class="td-hist" style="border: 0px;">{{ .itmw.Typ }}</div>
-                <div class="td-hist" style="border: 0px;">SNR {{ .itmw.Serial }}</div>
-                <div class="td-hist" style="border: 0px;">ID {{ .itmw.Itmid }}</div>
+            
+            <div class="bar-div">
+                <input type="hidden" id="_barimg0" value="/bar_img/{{ .itmw.Itmid }}.png" />
+                <img id="_barimg" src="/bar_img/{{ .itmw.Itmid }}.png" class="bar-img" />
+                <div class="td-hist" style="border: 0px;">{{ .itmw.Serial }}</div>
+                <div>
+                    <!-- <input type="hidden" id="_barimg0" value="/bar_img/{{ .itmw.Itmid }}.png" /> -->
+                    <input type="button" value="Print barcode" onclick="imgPrint('_barimg')" class="lst-btn" style="width: 120px;" />
+                </div>
             </div>
         </div>
     </div>
     <div id="div_itmstatus" style="border: 0px;">
         <div style="width: 250px;">
-            <div >
-                {{ if .statw }}
+            <div>
                 {{ range .statw }}
                 <div class="lst-box" style="margin-top: auto;">
                     <table style="width: 100%;">
                         <tr>
-                            <td  colspan="2">
+                            <td colspan="2">
                                 <div class="td-hist-hisdate">📅 {{ .Updated }}</div>
                             </td>
                         </tr>
@@ -131,10 +118,8 @@
                         <tr>
                             <td colspan="2" class="td-hist">{{ .Comment }}</td>
                         </tr>
-                        
                     </table>
                 </div>
-                {{ end }}
                 {{ end }}
             </div>
             <div class="lst-box">
@@ -144,10 +129,8 @@
                         <td>
                             <select id="_stasel" class="sta-select">
                                 <option value="">Select Status</option>
-                                {{ if .stats }}
                                 {{ range .stats }}
                                 <option value="{{ .Id }}">{{ .Staname }}</option>
-                                {{ end }}
                                 {{ end }}
                             </select>
                         </td>
@@ -174,5 +157,4 @@
 {{ else }}
 <div class="neworedit-header">Item not found</div>
 {{ end }}
-
 {{ template "footer.html" . }}
