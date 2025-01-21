@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var srvConf = viper.New()
+var srvConf = *viper.New()
 
 var AppDir string
 var DataDir string

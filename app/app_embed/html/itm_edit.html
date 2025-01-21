@@ -54,6 +54,7 @@
             <tr>
                 <td>
                     <input type="hidden" id="_itmid0" value="{{ .itmw.Itmid }}" />
+                    <input type="hidden" id="_itmserial0" value="{{ .itmw.Serial }}" />
                     <input type="hidden" id="_itmuid0" value="{{ .user.Id }}" />
                     <input type="button" value="Update" class="lst-btn" onclick="itmAddUpdate()" />
                 </td>
@@ -75,7 +76,7 @@
                         <td>
                             <div>
                                 <div class="td-hist" style="border: 0px;">{{ .itmw.Typ }}</div>
-                                <div class="td-hist" style="border: 0px;">SNR {{ .itmw.Serial }}</div>
+                                <div class="td-hist" style="border: 0px;">SN {{ .itmw.Serial }}</div>
                                 <div class="td-hist" style="border: 0px;">ID {{ .itmw.Itmid }}</div>
                             </div>
                         </td>

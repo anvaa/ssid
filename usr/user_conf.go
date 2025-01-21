@@ -8,27 +8,33 @@ import (
 )
 
 
-var UsrConf = viper.New()
+var UsrConf = *viper.New()
 
-var usrFileName string = "usr.yaml"
+var fileName string = "usr.yaml"
+var fileType string = "yaml"
+
+func init() {
+	UsrConf.SetConfigName(fileName)
+	UsrConf.AddConfigPath(".")
+	UsrConf.SetConfigType(fileType)
+}
 
 func user_WriteConfigFile(app_path string) {
 
 	UsrConf.SetDefault("app_dir", app_path)
 	UsrConf.SetDefault("users_db", "data/users.db")
-	
 	UsrConf.SetDefault("access_time", "3600*12*1") // 12 hours
 
-	err := UsrConf.WriteConfigAs(usrFileName)
+	err := UsrConf.WriteConfigAs(fileName)
 	if err != nil {
-		log.Fatal("Error creating", usrFileName)
+		log.Fatal("Error creating ", fileName)
 	}
 }
 
 func User_ReadConfig() {
 	err := UsrConf.ReadInConfig()
 	if err != nil {
-		log.Fatal("Error reading", usrFileName)
+		log.Fatal("Error reading ", fileName)
 	}
 }
 
@@ -50,8 +56,8 @@ func GetBool(key string) bool {
 
 func SetVal(key string, val any) {
 	UsrConf.Set(key, val)
-	err := UsrConf.WriteConfigAs(usrFileName)
+	err := UsrConf.WriteConfigAs(fileName)
 	if err != nil {
-		log.Fatal("Error SetVal", usrFileName)
+		log.Fatal("Error SetVal", fileName)
 	}
 }

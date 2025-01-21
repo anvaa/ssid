@@ -8,10 +8,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+var appConf = *viper.New()
+
 var fileName string = "app.yaml"
 var fileType string = "yaml"
-
-var appConf = viper.New()
 
 func init() {
 	appConf.SetConfigName(fileName)
@@ -24,8 +24,6 @@ func WriteDefaultConfig(appRoot string) {
 	appConf.SetDefault("app_db", "data/app.db")
 	appConf.SetDefault("txt_len", 35)
 	appConf.SetDefault("usr_url", "/app")
-
-
 
 	err := appConf.WriteConfigAs(fileName)
 	if err != nil {

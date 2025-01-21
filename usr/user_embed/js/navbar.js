@@ -10,19 +10,5 @@ function newUserClick() {
 }
 
 async function logoutClick() {
-    
-    try {
-        const response = await fetch("/logout", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-        });
-
-        if (!response.ok) {
-            throw new Error("Server error");
-        }
-
-        window.location.href = "/";
-    } catch (error) {
-        messageElement.innerHTML = "Logout failed: " + error.message;
-    }
+    window.location.href = "/logout";
 }

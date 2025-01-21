@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="noindex, nofollow" />
-        <meta charset="utf-8">
-        <link href="/css/bootstrap.min.css">
-        <title>{{ .title }}</title>
-    </head>
-
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>{{ .title }}</title>
     <style>
         a {
             text-decoration: none;
             color: black;
-            
         }
         a:hover {
             font-weight: bold;
         }
-
         .timetxt {
             font-family: monospace;
             font-size: 14px;
@@ -27,44 +22,63 @@
             color: black;
             cursor: pointer;
         }
+        .header, .content {
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace;
+        }
+        .header div, .content div {
+            vertical-align: middle;
+        }
+        .content {
+            text-align: center;
+        }
+        .app-info {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .app-info-long {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .company-info {
+            font-size: 18px;
+            font-weight: bold;
+        }
     </style>
-
+</head>
 <body>
-    <div style="display: flex; justify-content: space-between; font-family: monospace;">
-        <div style="vertical-align: middle;">
+    <div class="header">
+        <div>
             {{ if .url }}
             <a href="{{ .url }}">⬅ back</a>
             {{ else }}
             <a href="/">⬅ back</a>
             {{ end }}
         </div>
-        <div style="text-align: center; ">
+        <div>
             {{ .loctime }}
         </div>
-        <div style="text-align: right;">
+        <div>
             <a href="https://raadig.no" target="_blank">raadig.no</a>
         </div>
     </div>
     <br>
-    <div style="text-align: center;">
+    <div class="content">
         <div>
-            <div style="font-size: 24px; font-weight: bold;">
+            <div class="app-info">
                 {{ .info.AppName }} v{{ .info.Version }}
             </div>
-            <div style="font-size: 14px; font-weight: bold;">
+            <div class="app-info-long">
                 {{ .info.AppNameLong }}
             </div>
             <br>
-            <div style="font-size: 18px; font-weight: bold;">
+            <div class="company-info">
                 {{ .info.Company }}
             </div>
         </div>
-        <br>
-        <br>
+        <br><br>
         <div class="timetxt">{{ .apptime }}</div><br>
     </div>
-    </div>
-    <div>
-        
 </body>
 </html>

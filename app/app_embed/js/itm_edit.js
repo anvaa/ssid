@@ -94,18 +94,19 @@ function itmDelete(itmid) {
 }
 
 function imgPrint(prtype) {
-    const itmid = document.getElementById("_itmid0").value;
+    const serial = document.getElementById("_itmserial0").value;
     const img = document.getElementById(prtype).src;
     const win = window.open("", "_blank");
-    
+
     const printpage = `
-        <div style='width: 100%; text-align: center;'>
-            <img src='${img}' style='width: 100%; margin-bottom: 0px;' />
-            <div style='font-family: monospace; font-size: 48px; font-weight: bold; margin-top: 0px;'>${itmid}</div>
+        <div style="width: 100%; text-align: center;">
+            <img src="${img}" style="width: 100%; margin-bottom: 0;" />
+            <div style="font-family: monospace; font-size: 48px; font-weight: bold; margin-top: 0;">${serial}</div>
         </div>
     `;
 
     win.document.write(printpage);
+    win.document.close();
     win.print();
     win.close();
 }

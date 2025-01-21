@@ -1,4 +1,3 @@
-
 body {
     background-color: white;
     padding: 20px;
@@ -6,16 +5,15 @@ body {
 }
 
 input[type=text], input[type=password], input[type=email], input[type=number] {
-    width: 100%;
-    padding: 5px 5px;
+    width: 300px;
+    padding: 5px;
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 15px;
-    width: 300px;
 }
 
-label {
-    padding: 5px 5px;
+label, select {
+    padding: 5px;
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 15px;
@@ -23,30 +21,43 @@ label {
 }
 
 select {
-    padding: 5px 5px;
-    margin: 8px 0;
-    box-sizing: border-box;
     font-size: 20px;
     width: fit-content !important;
 }
 
-/* u_nav.html menu items */
-.menubutton {
+.menubutton, .subbutton, .delbutton, .authbutton {
     background-color: black;
-    border: 1px solid white;
+    border: 1px solid black;
     color: white;
     padding: 3px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 15px;
     cursor: pointer;
     border-radius: 6px;
 }
+
+.menubutton {
+    border-color: white;
+    font-size: 15px;
+}
+
 .menubutton:hover {
     background-color: white;
-    border: 1px solid white;
     color: black;
+}
+
+.delbutton {
+    font-size: 10px;
+}
+
+.delbutton:hover {
+    background-color: red;
+    border-color: orangered;
+}
+
+.authbutton {
+    font-size: 10px;
 }
 
 .errmessage {
@@ -54,54 +65,38 @@ select {
     font-weight: bold;
     font-size: 18px;
     font-family: monospace;
-
     width: fit-content;
     padding: 3px 5px;
     border-radius: 10px;
     border: 2px solid white;
 }
 
-/* user/admin text navbar center */
-.admin-text {
-    color: lightgrey;
+.admin-text, .info-text, .topmenu-text {
     font-size: 15px;
 }
 
-.header-text {
-    font-weight: bold;
-    font-size: 18px;
-    text-align: left;
-    color: black;
-    padding: 3px;
-    text-align: left;
+.admin-text {
+    color: lightgrey;
 }
 
-.act-text {
-    font-weight: bold;
-    font-size: 12px;
-    
-    color: black;
-    padding: 3px;
-    
-}
-
-.header-text-count {
+.header-text, .header-text-count {
     font-weight: bold;
     font-size: 18px;
     text-align: left;
     color: black;
     width: fit-content;
+    padding: 3px;
 }
 
-.info-text {
+.act-text {
+    font-weight: bold;
+    font-size: 12px;
     color: black;
-    font-size: 15px;
-    text-align: left;
+    padding: 3px;
 }
 
 .topmenu-text {
     color: black;
-    font-size: 15px;
     text-align: right;
     cursor: pointer;
 }
@@ -112,59 +107,7 @@ select {
     background-color: black;
     padding: 2px;
     border-radius: 10px;
-} 
-
-/* .topmenu-th {
-    border: 1px solid black;
-    padding: 5px;
-    text-align: left;
-    background-color: black;
-    color: white;
-    
-} */
-
-.subbutton {
-    background-color: black;
-    border: 1px solid black;
-    color: white;
-    padding: 3px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 6px;
 }
-
-.delbutton {
-    background-color: black;
-    border: 1px solid black;
-    color: white;
-    padding: 3px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 10px;
-    cursor: pointer;
-    border-radius: 6px;
-} .delbutton:hover {
-    background-color: red;
-    border: 1px solid orangered;
-    color: white;
-}
-
-.authbutton {
-    background-color: black;
-    border: 1px solid black;
-    color: white;
-    padding: 3px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 10px;
-    cursor: pointer;
-    border-radius: 6px;
-} 
 
 .list-header {
     color: black;
@@ -177,65 +120,45 @@ select {
     width: fit-content;
 }
 
+.table-users, .td-list-users, .td-list-header {
+    font-family: monospace;
+    font-size: 15px;
+    text-align: left;
+    border: 1px solid black;
+    padding: 2px;
+}
+
 .table-users {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    
     color: black;
-
-    font-family: monospace;
-    text-align: left;
-    font-size: 15px;
-}
-
-.td-list-users {
-    padding: 2px;
-    font-family: monospace;
-    border: 1px solid black;
-    background-color: white;
-    
 }
 
 .td-list-header {
-    padding: 2px;
-    font-family: monospace;
-    border: 1px solid black;
     background-color: lightgray;
-    
+}
+
+.form-edituser, .configbox, .configbox-inherit, .menubox {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    width: fit-content;
 }
 
 .form-edituser {
-    width: fit-content;
-    border-collapse: collapse;
     padding: 10px;
-
     background-color: lightgray;
     color: black;
-
-    text-align: left;
-}
-
-.configbox {
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 3px;
-    width: fit-content;
 }
 
 .configbox-inherit {
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 3px;
     width: inherit;
 }
 
 .menubox {
-    border: 2px solid black;
     border-radius: 7px;
     padding: 2px;
-    width: fit-content;
-
     background-color: black;
 }
 

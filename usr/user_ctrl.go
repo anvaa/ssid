@@ -14,7 +14,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var CookieName = app_conf.AppName + "_Auth"
+var CookieName = strings.Replace(app_conf.AppName, " ", "", -1) + "_Auth"
 var errmsg = "user or password invalid"
 
 func SignUp(c *gin.Context) {

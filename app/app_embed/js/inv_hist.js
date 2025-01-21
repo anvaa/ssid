@@ -1,21 +1,15 @@
-
 async function staAddStatus(itmid) {
-    var stat = document.getElementById("_stasel0").value;
-    var txt = document.getElementById("_stacom0").value;
-    var uid = document.getElementById("_uid0").value;
-    alert("stat: " + stat + ", txt: " + txt + ", uid: " + uid);
-    if (txt == "" || stat == "") {
+    const stat = document.getElementById("_stasel0").value;
+    const txt = document.getElementById("_stacom0").value;
+    const uid = document.getElementById("_uid0").value;
+
+    if (!stat || !txt) {
         alert("Nothing to add!");
-        return; 
+        return;
     }
 
-    var data = {
-        id: itmid,
-        stat: stat,
-        txt: txt,
-        uid: uid,
-    };
-    
+    const data = { id: itmid, stat, txt, uid };
+
     try {
         const response = await fetch("/sta/hist/add", {
             method: "POST",

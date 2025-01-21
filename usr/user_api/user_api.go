@@ -21,7 +21,7 @@ func User_Api(r *gin.Engine) *gin.Engine {
 	r.POST("/login", users.View_Login)
 	r.GET("/login", users.View_Login)
 	
-	r.POST("/logout", middleware.Logout)
+	r.GET("/logout", middleware.Logout)
 
 	userRoutes := r.Group("/user")
 	{

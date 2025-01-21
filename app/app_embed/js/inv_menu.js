@@ -48,15 +48,5 @@ function Info() {
 }
 
 function Logout() {
-    // POST request to /logout
-    fetch("/logout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Server error");
-        }
-        window.location.href = "/";
-    })
+    window.location.href = "/logout";
 }
