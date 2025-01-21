@@ -20,8 +20,8 @@ use (
 
 	./srv/web/middleware
 
-	./users
-	./users/user_api
-	./users/user_embed
+	./usr
+	./usr/user_api
+	./usr/user_embed
 	
 )

@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"users"
+	"usr"
 
 	"github.com/gin-gonic/gin"
 )

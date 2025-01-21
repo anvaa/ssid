@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"srv/srv_sec"
-	"users"
+	"usr"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"

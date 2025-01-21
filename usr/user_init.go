@@ -3,7 +3,7 @@ package users
 import (
 	"srv/filefunc"
 	"srv/srv_conf"
-	"users/user_embed"
+	"usr/user_embed"
 
 	"log"
 )

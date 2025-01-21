@@ -2,7 +2,7 @@ package app_ctrl
 
 import (
 	"srv/global"
-	"users"
+	"usr"
 
 	"app/app_db"
 	"app/app_models"

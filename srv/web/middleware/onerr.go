@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"log"
-	"users"
+	"usr"
 
 	"github.com/gin-gonic/gin"
 

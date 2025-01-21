@@ -2,7 +2,7 @@ package server
 
 import (
 	"fmt"
-	"users/user_api"
+	"usr/user_api"
 
 	"app/app_api"
 

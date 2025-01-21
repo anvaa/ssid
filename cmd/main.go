@@ -6,7 +6,7 @@ import (
 	"srv/server"
 	"srv/srv_conf"
 	"srv/srv_sec"
-	"users"
+	"usr"
 	"srv_int"
 
 	"app"

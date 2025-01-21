@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 
-	"users"
+	"usr"
 )
 
 func IsAdmin(c *gin.Context) {

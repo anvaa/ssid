@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"srv/web/middleware"
-	"users"
+	"usr"
 
 )
 
