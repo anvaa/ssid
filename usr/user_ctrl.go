@@ -244,9 +244,9 @@ func User_DeleteUser(c *gin.Context) {
 
 	uid := body.Id
 
-	if uid == "1" {
+	if uid == "1212090603" {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "Not allowed to delete superadmin!"})
+			"message": "Not allowed to delete admin!"})
 		return
 	}
 
