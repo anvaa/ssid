@@ -1,6 +1,7 @@
 
 # general files
 *.csv
+*.png
 
 # air generated files
 .air.toml
