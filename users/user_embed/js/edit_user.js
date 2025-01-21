@@ -6,11 +6,6 @@ async function delClick() {
 
     var uid = document.getElementById("_uid").value;
     var email = document.getElementById("_email").value;
-    
-    if (uid == "1") {
-        messageElement.innerHTML = "Can´t delete superadmin!";
-        return;
-    }
 
     const verify = confirm("Are you sure you want to delete user " + email + 
                             "? \n\nYou can just remove auth to deny access.", "Delete user");
