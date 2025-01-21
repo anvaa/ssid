@@ -28,13 +28,6 @@ func init() {
 func WriteConfigFile(app_path string) error {
 
 	AppDir = app_path
-	
-	DataDir = "data"
-	AssetsDir = "assets"
-	StaticDir = "static"
-	ReportsDir = AssetsDir + "/reports"
-	QRImgDir = AssetsDir + "/qr_img"
-	BarImgDir = AssetsDir + "/bar_img"
 
 	srvConf.SetDefault("server_port", 5005)
 	srvConf.SetDefault("gin_mode", "release")
@@ -83,4 +76,13 @@ func SetVal(key string, val any) {
 
 func IsGinModDebug() bool {
 	return srvConf.GetString("gin_mode") == "debug"
+}
+
+func SetPaths() {
+	DataDir = "data"
+	AssetsDir = "assets"
+	StaticDir = "static"
+	ReportsDir = AssetsDir + "/reports"
+	QRImgDir = AssetsDir + "/qr_img"
+	BarImgDir = AssetsDir + "/bar_img"
 }

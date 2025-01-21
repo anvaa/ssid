@@ -10,11 +10,16 @@ import (
 
 func ServerInit(app_dir string) error {
 
-	// write the srv_conf file
-	err := srv_conf.WriteConfigFile(app_dir)
-	if err != nil {
-		return err
+	srv_yaml := app_dir + "/srv.yaml"
+	if !filefunc.IsExists(srv_yaml) {
+		// write the srv_conf file
+		err := srv_conf.WriteConfigFile(app_dir)
+		if err != nil {
+			return err
+		}
 	}
+	srv_conf.Srv_ReadConfig()
+	srv_conf.SetPaths()
 
 	// Check for .crt/.key files
 	server.CheckTLS(app_dir, srv_conf.GetInt("tls_keysize"))

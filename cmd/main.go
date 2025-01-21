@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-var WD string = getWD()
+var app_dir string = getWD()
 var Hostip []string
 
 var CloseChan = make(chan os.Signal, 1)
@@ -32,19 +32,19 @@ func init() {
 	setupCloseHandler()
 	
 	// Check/make srv.yaml 
-	err := srv_int.ServerInit(WD)
+	err := srv_int.ServerInit(app_dir)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Check/make userdb, usr.yaml & user http.FileSystem
-	err = users.UserInit(srv_conf.AppDir)
+	err = users.UserInit(app_dir)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Check/make appdb, app.yaml & app http.FileSystem
-	err = app.AppInit(srv_conf.AppDir)
+	err = app.AppInit(app_dir)
 	if err != nil {
 		log.Fatal(err)
 	}

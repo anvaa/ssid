@@ -18,7 +18,12 @@ func UserInit(app_path string) error {
 	}
 
 	user_Database(srv_conf.DataDir)
-	user_WriteConfigFile(app_path)
+
+	// Check/make usr.yaml
+	if !filefunc.IsExists(app_path + "/usr.yaml") {
+		user_WriteConfigFile(app_path)
+	}
+	User_ReadConfig()
 
 	return nil
 }
