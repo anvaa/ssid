@@ -1,7 +1,5 @@
 package users
-
 import (
-
 	"errors"
 	"log"
 )

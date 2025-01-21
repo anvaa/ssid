@@ -14,82 +14,61 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var CookieName = strings.Replace(app_conf.AppName, " ", "", -1) + "_Auth"
-var errmsg = "user or password invalid"
+var (
+	CookieName = strings.Replace(app_conf.AppName, " ", "", -1) + "_Auth"
+	errmsg     = "user or password invalid"
+)
 
 func SignUp(c *gin.Context) {
-
 	var body struct {
 		Email     string `json:"email"`
 		Password  string `json:"password"`
 		Password2 string `json:"password2"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to read body"})
 		return
 	}
 
-	// validate the email/password
-	email := strings.TrimSpace(body.Email)
-	password := strings.TrimSpace(body.Password)
-	password2 := strings.TrimSpace(body.Password2)
+	email, password, password2 := strings.TrimSpace(body.Email), strings.TrimSpace(body.Password), strings.TrimSpace(body.Password2)
 
-	err := IsValidEmail(email)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err.Error()})
+	if err := IsValidEmail(email); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 
 	if password != password2 {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "InternalServerError"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "InternalServerError"})
 		return
 	}
 
-	err = IsValidPassword(password)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err.Error()})
+	if err := IsValidPassword(password); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 
-	// check if the email is already in use
 	user, err := User_GetByEmail(email)
 	if err != nil {
 		log.Println("New User")
 	}
 
 	if user.Id > 0 {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "InternalServerError"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "InternalServerError"})
 		return
 	}
 
-	// hash the password before save
 	hashedPassword, err := HashPassword(password)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "InternalServerError"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "InternalServerError"})
 		return
 	}
 
-	// first user gets to be admin
-	role := "user"
-	isauth := false
-	accessTime := 3600 // 1 hour
-	url := app_conf.GetString("usr_url")
-
+	role, isauth, accessTime, url := "user", false, 3600, app_conf.GetString("usr_url")
 	if Users_Count() == 0 {
-		role = "admin"
-		isauth = true
-		accessTime = 10800 // 3 hours
-		url = "/v/newusers"
+		role, isauth, accessTime, url = "admin", true, 10800, "/v/newusers"
 	}
 
-	// create a user
 	user = Users{
 		Id:         NewUuid(),
 		Email:      email,
@@ -99,136 +78,86 @@ func SignUp(c *gin.Context) {
 		AccessTime: accessTime,
 	}
 
-	err = CreateNewUser(&user, url)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err.Error()})
+	if err := CreateNewUser(&user, url); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 
-	// return
-	c.JSON(http.StatusOK, gin.H{
-		"message": "success",
-		"url":     "/login"})
-
+	c.JSON(http.StatusOK, gin.H{"message": "success", "url": "/login"})
 }
 
 func Login(c *gin.Context) {
-
 	var body struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read"})
 		return
 	}
 
-	url := "/" // default return url
+	email, password := strings.TrimSpace(body.Email), strings.TrimSpace(body.Password)
+	url := "/"
 
-	// validate the email/password
-	email := strings.TrimSpace(body.Email)
-	password := strings.TrimSpace(body.Password)
-
-	var err error
-	err = IsValidEmail(email)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errmsg,
-			"url":     url})
+	if err := IsValidEmail(email); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": errmsg, "url": url})
 		return
 	}
 
-	err = IsValidPassword(password)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errmsg,
-			"url":     url})
+	if err := IsValidPassword(password); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": errmsg, "url": url})
 		return
 	}
 
-	// find the user by email
-	_user, err := User_GetByEmail(email)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": errmsg,
-			"url":     url})
-		return
-	}
-
-	if !_user.IsAuth {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errmsg,
-			"url":     url})
-		return
-	}
-
-	if _user.Email == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errmsg,
-			"url":     url})
-		return
-	}
-
-	if !CheckPasswordHash(password, _user.Password) {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errmsg,
-			"url":     url})
+	user, err := User_GetByEmail(email)
+	if err != nil || !user.IsAuth || user.Email == "" || !CheckPasswordHash(password, user.Password) {
+		c.JSON(http.StatusBadRequest, gin.H{"message": errmsg, "url": url})
 		return
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub": _user.Id,
-		"exp": time.Now().Add(time.Second * time.Duration(_user.AccessTime)).Unix(),
+		"sub": user.Id,
+		"exp": time.Now().Add(time.Second * time.Duration(user.AccessTime)).Unix(),
 	})
 
 	tokenString, err := token.SignedString([]byte(srv_sec.JwtSecret))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to generate"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to generate"})
 		return
 	}
 
 	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie(CookieName, tokenString, _user.AccessTime, "/", "", true, true)
+	c.SetCookie(CookieName, tokenString, user.AccessTime, "/", "", true, true)
 
-	// redirect to userurl or newusers
-	if _user.Id == 1 {
-		url = "/v/newusers" // admin start page
+	if user.Id == 1 {
+		url = "/v/newusers"
 	} else {
-		url, _ = User_GetUrlFromId(_user.Id) // user start page
+		url, _ = User_GetUrlFromId(user.Id)
 	}
 
-	// permanently redirect to url
-	c.JSON(301, gin.H{
-		"url": url})
-
+	c.JSON(http.StatusMovedPermanently, gin.H{"url": url})
 }
 
 func GetAllUsers(c *gin.Context) {
-	_users, err := Users_GetAll()
+	users, err := Users_GetAll()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to get users"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to get users"})
 		return
 	}
 
-	c.JSON(http.StatusOK, _users)
+	c.JSON(http.StatusOK, users)
 }
 
 func GetUser(c *gin.Context) {
-
 	id := c.Param("id")
-	_user, err := User_GetById(id)
+	user, err := User_GetById(id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to get user"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to get user"})
 		return
 	}
 
-	c.JSON(http.StatusOK, _user)
+	c.JSON(http.StatusOK, user)
 }
 
 func User_DeleteUser(c *gin.Context) {
@@ -236,24 +165,18 @@ func User_DeleteUser(c *gin.Context) {
 		Id string `json:"id"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read body"})
 		return
 	}
 
-	uid := body.Id
-
-	if uid == "1212090603" {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "Not allowed to delete admin!"})
+	if body.Id == "1212090603" {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Not allowed to delete admin!"})
 		return
 	}
 
-	err := User_Delete(uid)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to delete user"})
+	if err := User_Delete(body.Id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to delete user"})
 		return
 	}
 
@@ -266,37 +189,23 @@ func User_UpdateAuth(c *gin.Context) {
 		Isauth string `json:"isauth"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read body"})
 		return
 	}
 
-	// protect superadmin
 	if body.UserId == "1" {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "can´t change auth superadmin!"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "can´t change auth superadmin!"})
 		return
 	}
 
-	var isAuth bool
-	switch body.Isauth {
-	case "true":
-		isAuth = false
-	case "false":
-		isAuth = true
-	}
-	// fmt.Println("secind", body)
-	err := user_UpdateAuth(body.UserId, isAuth)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to update auth"})
+	isAuth := body.Isauth == "false"
+	if err := user_UpdateAuth(body.UserId, isAuth); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to update auth"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "success"})
-
+	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }
 
 func User_UpdateRole(c *gin.Context) {
@@ -305,29 +214,22 @@ func User_UpdateRole(c *gin.Context) {
 		Role string `json:"role"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read body"})
 		return
 	}
 
-	// protect superadmin
 	if body.Id == "1" {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "can´t change role superadmin!"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "can´t change role superadmin!"})
 		return
 	}
 
-	err := user_UpdateRole(body.Id, body.Role)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to update role"})
+	if err := user_UpdateRole(body.Id, body.Role); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to update role"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "success"})
-
+	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }
 
 func User_SetNewPassword(c *gin.Context) {
@@ -336,35 +238,28 @@ func User_SetNewPassword(c *gin.Context) {
 		Password string `json:"password"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read body"})
 		return
 	}
 
-	if IsValidPassword(body.Password) != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "Password is not valid"})
+	if err := IsValidPassword(body.Password); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Password is not valid"})
 		return
 	}
 
 	hashedPassword, err := HashPassword(body.Password)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "Failed to hash password"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to hash password"})
 		return
 	}
 
-	err = user_SetNewPassword(body.Id, string(hashedPassword))
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to update password"})
+	if err := user_SetNewPassword(body.Id, string(hashedPassword)); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to update password"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "success"})
-
+	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }
 
 func User_SetAct(c *gin.Context) {
@@ -373,24 +268,18 @@ func User_SetAct(c *gin.Context) {
 		AccessTime string `json:"accesstime"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read body"})
 		return
 	}
 
 	accessTime := global.CalculateAccessTime(body.AccessTime)
-
-	err := user_SetAct(body.Id, accessTime)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to update access time"})
+	if err := user_SetAct(body.Id, accessTime); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to update access time"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "success"})
-
+	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }
 
 func User_UpdateUrl(c *gin.Context) {
@@ -399,34 +288,20 @@ func User_UpdateUrl(c *gin.Context) {
 		Url string `json:"url"`
 	}
 
-	if c.BindJSON(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to read body"})
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "failed to read body"})
 		return
 	}
 
-	// protect superadmin
 	if body.Id == "1" {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "can´t change URL superadmin!"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "can´t change URL superadmin!"})
 		return
 	}
 
-	err := user_UpdateUrl(body.Id, body.Url)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to update url"})
+	if err := user_UpdateUrl(body.Id, body.Url); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to update url"})
 		return
 	}
 
-	err = user_UpdateUrl(body.Id, body.Url)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "failed to update url"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"message": "success"})
-
+	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }

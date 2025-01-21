@@ -1,17 +1,16 @@
 package users
 
 import (
-
 	"log"
 
 	"github.com/spf13/viper"
 )
 
-
-var UsrConf = *viper.New()
-
-var fileName string = "usr.yaml"
-var fileType string = "yaml"
+var (
+	UsrConf  = viper.New()
+	fileName = "usr.yaml"
+	fileType = "yaml"
+)
 
 func init() {
 	UsrConf.SetConfigName(fileName)
@@ -19,22 +18,19 @@ func init() {
 	UsrConf.SetConfigType(fileType)
 }
 
-func user_WriteConfigFile(app_path string) {
-
-	UsrConf.SetDefault("app_dir", app_path)
+func WriteConfigFile(appPath string) {
+	UsrConf.SetDefault("app_dir", appPath)
 	UsrConf.SetDefault("users_db", "data/users.db")
 	UsrConf.SetDefault("access_time", "3600*12*1") // 12 hours
 
-	err := UsrConf.WriteConfigAs(fileName)
-	if err != nil {
-		log.Fatal("Error creating ", fileName)
+	if err := UsrConf.WriteConfigAs(fileName); err != nil {
+		log.Fatalf("Error creating %s: %v", fileName, err)
 	}
 }
 
-func User_ReadConfig() {
-	err := UsrConf.ReadInConfig()
-	if err != nil {
-		log.Fatal("Error reading ", fileName)
+func ReadConfig() {
+	if err := UsrConf.ReadInConfig(); err != nil {
+		log.Fatalf("Error reading %s: %v", fileName, err)
 	}
 }
 
@@ -56,8 +52,7 @@ func GetBool(key string) bool {
 
 func SetVal(key string, val any) {
 	UsrConf.Set(key, val)
-	err := UsrConf.WriteConfigAs(fileName)
-	if err != nil {
-		log.Fatal("Error SetVal", fileName)
+	if err := UsrConf.WriteConfigAs(fileName); err != nil {
+		log.Fatalf("Error setting value in %s: %v", fileName, err)
 	}
 }

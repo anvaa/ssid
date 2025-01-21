@@ -1,17 +1,18 @@
 {{ template "inv_menu.html" . }}
 <div class="neworedit-header">Statistics</div>
-<br>
-{{ if gt .stats.Itm_count 0  }}
-<div class="stat-info">There are {{ .stats.Itm_count }} items in the database with a total cost of {{ .stats.Total_Price }}</div>
-<div class="stat-info">First item added {{  .stats.FirstDate }}, last one {{ .stats.LastDate }}</div>
-<br>
-{{ range .stats.LocType }}
-<div class="stat-header">{{ .Locname }}: {{ .ItemsTotalCount }} ({{ .LocTotPrice }})</div>
-    {{ range .Loctype }}
-    <div class="stat-item">- {{ .Typname }}: {{ .TypCount }}</div>
-    {{ end }}
-{{ end }}
 
+{{ if gt .stats.Itm_count 0  }}
+<div class="div-qr">
+    <div class="stat-info">There are {{ .stats.Itm_count }} items in the database with a total cost of {{ .stats.Total_Price }}</div>
+    <div class="stat-info">First item added {{  .stats.FirstDate }}, last one {{ .stats.LastDate }}</div>
+    <br>
+    {{ range .stats.LocType }}
+    <div class="stat-header">{{ .Locname }}: {{ .ItemsTotalCount }} ({{ .LocTotPrice }})</div>
+        {{ range .Loctype }}
+        <div class="stat-item">- {{ .Typname }}: {{ .TypCount }}</div>
+        {{ end }}
+    {{ end }}
+</div>
 {{ else }}
 <div class="stat-info">There are no items in the database.</div>
 {{ end }}

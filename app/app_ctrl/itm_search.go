@@ -5,32 +5,30 @@ import (
 	"app/app_db"
 	"app/app_models"
 )
-
 func Itms_SearchMulti(locid, typid, manid, staid string) ([]app_models.Items, int) {
 	// Search for an item
 	var itms []app_models.Items
 	
-	var sql string
+	conditions := []string{}
 	if locid != "0" {
-		sql = "locid = " + locid
+		conditions = append(conditions, "locid = "+locid)
 	}
 	if typid != "0" {
-		if sql != "" {
-			sql += " AND "
-		}
-		sql += "typid = " + typid
+		conditions = append(conditions, "typid = "+typid)
 	}
 	if manid != "0" {
-		if sql != "" {
-			sql += " AND "
-		}
-		sql += "manid = " + manid
+		conditions = append(conditions, "manid = "+manid)
 	}
 	if staid != "0" {
-		if sql != "" {
-			sql += " AND "
+		conditions = append(conditions, "staid = "+staid)
+	}
+
+	sql := ""
+	if len(conditions) > 0 {
+		sql = conditions[0]
+		for _, condition := range conditions[1:] {
+			sql += " AND " + condition
 		}
-		sql += "staid = " + staid
 	}
 
 	// Search for the item

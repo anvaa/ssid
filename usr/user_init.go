@@ -21,9 +21,9 @@ func UserInit(app_path string) error {
 
 	// Check/make usr.yaml
 	if !filefunc.IsExists(app_path + "/usr.yaml") {
-		user_WriteConfigFile(app_path)
+		WriteConfigFile(app_path)
 	}
-	User_ReadConfig()
+	ReadConfig()
 
 	return nil
 }
