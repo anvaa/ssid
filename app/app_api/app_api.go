@@ -26,7 +26,6 @@ func App_Api(r *gin.Engine) *gin.Engine {
 	r.Static("/bar_img", srv_conf.BarImgDir)
 
 	r.LoadHTMLGlob(static_dir+"/html/*.html")
-	
 
 	// SET app routes
 	invGrp := r.Group("/app")
