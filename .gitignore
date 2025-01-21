@@ -9,7 +9,10 @@
 tmp/*
 
 # app generated files #
-app.*
+app.crt
+app.key
+app.yaml
+
 runme.sh
 /static
 /data

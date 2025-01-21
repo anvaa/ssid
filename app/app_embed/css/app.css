@@ -1,0 +1,250 @@
+body {
+    background-color: whitesmoke;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: black;
+}
+
+.th-itmlst {
+
+    padding: 3px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+
+    text-align: left;
+    font-family: monospace;
+}
+
+.td-itmlst {
+    padding: 1px;
+    border: 1px solid black;
+
+    vertical-align: middle;
+    font-family: monospace;
+}
+
+.btn-hist {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+
+    text-align: center;
+
+    width: 100%;
+} 
+.btn-hist:hover {
+    background-color: #45a049;
+}
+
+.hist-head {
+    padding: 3px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+
+    text-align: center;
+}
+
+.td-hist-hisdate {
+    padding: 1px;
+    border: 1px solid black;
+    background-color: transparent;
+
+    vertical-align: middle;
+    border-radius: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+
+}
+
+.td-hist {
+    padding: 1px;
+    border: 1px solid black;
+    background-color: transparent;
+
+    vertical-align: middle;
+    border-radius: 5px;
+
+    font-family: monospace;
+
+} 
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+
+    padding: 2px;
+    border-radius: 8px;
+
+    background-color: transparent;
+    border: 0px solid black;
+}
+
+.flex-container > div {
+    padding: 2px;
+    margin: 2px;
+    border-radius: 8px;
+    
+}
+
+
+
+.div-new {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: black;
+
+    text-align: left;
+
+    width: 100%;
+}
+
+.neworedit-header {
+
+    margin-top: 2px;
+
+    padding: 2px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: black;
+
+    text-align: left;
+    font-weight: bold;
+
+    width: 300px;
+}
+
+.div-header {
+    padding: 2px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: black;
+
+    font-family: monospace;
+
+    text-align: left;
+
+    width: 80%;
+}
+
+.qr-img {
+    width: 100px;
+    height: 100px;
+
+    padding: 0px;
+    border: 0px;
+
+}
+
+.div-qr {
+
+    padding: 2px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    
+
+}
+
+.qr-print {
+
+    text-align: center;
+    font-family: monospace;
+    font-size: 20px; 
+}
+
+.qr-print-btn {
+    padding: 2px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+
+    text-align: center;
+    vertical-align: middle;
+
+    width: 80px;
+    height: 30px;
+}
+
+.div_neworedit {
+    background-color: transparent;
+    margin: 0px;
+    
+}
+
+.div_search {
+    
+    padding: 2px;
+
+    background-color: transparent;
+    margin: 0px;
+    
+    width: 70%;
+    text-align: center;
+
+    font-family: monospace;
+    font-weight: bold;
+    
+}
+
+.new-btn {
+
+    padding: 2px;
+    
+    border-radius: 5px;
+
+    background-color: rgb(42, 170, 42);
+    color: black;
+
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+
+    width: 80px;
+    
+}
+
+.footer {
+    background: black;
+    color: lightgrey;
+
+    font-family: monospace;
+    font-size: 10px;
+    
+    padding: 0px 5px;
+    width: 96%;
+    border-radius: 5px;
+
+    position: fixed;
+    bottom: 0;
+
+}
+
+a {
+    color: lightgrey;
+    text-decoration: none;
+}
+
+.bar-div {
+    
+    padding: 2px;
+    border-radius: 8px;
+
+    background-color: transparent;
+    border: 1px solid black;
+
+    text-align: center;
+}
+
+.bar-img {
+    width: 200px;
+    height: 35px;
+
+    padding: 0px;
+    border: 0px;
