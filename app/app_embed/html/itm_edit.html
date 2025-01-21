@@ -64,12 +64,14 @@
                     <div class="div-header">Price</div>
                     <input type="text" id="_itmprice0" class="edit-text" value="{{ .itmw.Price }}" style="width: 80px;" maxlength="20" onkeydown="isEdit()" />
                 </td>
+                
             </tr>
+            <tr>
                 <td colspan="3">
                     <div class="div-header">Description</div>
                     <textarea id="_itmdesc0" maxlength="255" class="edit-desc" onkeydown="isEdit()">{{ .itmw.Description }}</textarea>
                 </td>
-            <tr>
+            
             </tr>
             <tr>
                 <td>
@@ -104,10 +106,9 @@
                 </table>
             </div>
             <div>
-                <div class="td-hist" style="border: 0px;">ID {{ .itmw.Itmid }}</div>
-                <div class="td-hist" style="border: 0px;">SNR {{ .itmw.Serial }}</div>
                 <div class="td-hist" style="border: 0px;">{{ .itmw.Typ }}</div>
-                
+                <div class="td-hist" style="border: 0px;">SNR {{ .itmw.Serial }}</div>
+                <div class="td-hist" style="border: 0px;">ID {{ .itmw.Itmid }}</div>
             </div>
         </div>
     </div>

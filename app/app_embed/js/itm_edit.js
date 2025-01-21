@@ -1,16 +1,15 @@
+document.addEventListener("keydown", handleKeyDown);
+
+function handleKeyDown(event) {
+    
+    if (event.key === "Enter" && document.getElementById("_siteaction").value === "edit_itm") {
+        itmAddUpdate();
+    }
+}
 
 function resetPage() {
     window.location.reload();
-    return;
-};
-
-document.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (document.getElementById("_siteaction").value == "edit_itm") {
-            itmAddUpdate();
-        }
-    }
-});
+}
 
 function isEdit() {
     document.getElementById("_isedit").value = "true";
@@ -21,50 +20,43 @@ function setFocus() {
 }
 
 async function itmAddUpdate() {
-
-    if (document.getElementById("_isedit").value == "false") {
+    if (document.getElementById("_isedit").value === "false") {
         alert("Nothing to add/update");
         return;
     }
 
-    
-    var locsel = document.getElementById("_locsel").value;
-    var typsel = document.getElementById("_typsel").value;
-    var mansel = document.getElementById("_mansel").value;
-    var stasel = document.getElementById("_stasel").value;
-    
-    var itmid = document.getElementById("_itmid0").value;
-    var itmuid = document.getElementById("_itmuid0").value;
-    var itmdesc = document.getElementById("_itmdesc0").value;
-    var itmserial = document.getElementById("_itmserial0").value;
-    var itmprice = document.getElementById("_itmprice0").value;
-    
-    if (locsel == "" || typsel == "" || mansel == "") {
+    const locsel = document.getElementById("_locsel").value;
+    const typsel = document.getElementById("_typsel").value;
+    const mansel = document.getElementById("_mansel").value;
+    const stasel = document.getElementById("_stasel").value;
+    const itmid = document.getElementById("_itmid0").value;
+    const itmuid = document.getElementById("_itmuid0").value;
+    const itmdesc = document.getElementById("_itmdesc0").value;
+    const itmserial = document.getElementById("_itmserial0").value;
+    let itmprice = document.getElementById("_itmprice0").value;
+
+    if (!locsel || !typsel || !mansel) {
         alert("Please select item location, type and manufacturer");
         return;
     }
 
-    if (itmdesc == "" || itmserial == "" || itmprice == "") {
+    if (!itmdesc || !itmserial || !itmprice) {
         alert("Please fill in text fields");
         return;
     }
 
-    // replace
-    itmprice = itmprice.replace(",", ".");
-    itmprice = itmprice.trim();
+    itmprice = itmprice.replace(",", ".").trim();
 
-    // var url = window.location.pathname;
-    var data = {
-        "locid":  parseInt(locsel),
-        "typid":  parseInt(typsel),
-        "manid":  parseInt(mansel),
-        "staid":  parseInt(stasel),
-       
-        "Description": itmdesc,
-        "serial": itmserial,
-        "price": parseFloat(itmprice) ,
-        "uid": parseInt(itmuid),
-        "itmid": parseInt(itmid),
+    const data = {
+        locid: parseInt(locsel),
+        typid: parseInt(typsel),
+        manid: parseInt(mansel),
+        staid: parseInt(stasel),
+        Description: itmdesc,
+        serial: itmserial,
+        price: parseFloat(itmprice),
+        uid: parseInt(itmuid),
+        itmid: parseInt(itmid),
     };
 
     try {
@@ -86,65 +78,62 @@ async function itmAddUpdate() {
 }
 
 function itmDelete(itmid) {
-    
     if (!confirm("Are you sure you want to delete this item?")) {
         return;
     }
 
-    var url = "/itm/delete/"+itmid;
-    var xhr = new XMLHttpRequest();
+    const url = `/itm/delete/${itmid}`;
+    const xhr = new XMLHttpRequest();
     xhr.open("DELETE", url, true);
     xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
             window.location.href = "/app";
         }
-    }
+    };
     xhr.send();
 }
 
 function itmPrintQrClick() {
-    // print image
-    var itmid = document.getElementById("_itmid0").value;
-    var img = document.getElementById("_qrimg").src;
-    var win = window.open("", "_blank");
-    
-    printpage = "<div style='width: 100%;text-align: center;'>"+
-                    "<img src='"+img+"' style='width: 100%;margin-bottom: 0px;' />"+
-                    "<div style='font-family: monospace;font-size: 48px;font-weight: bold;margin-top: 0px;'>"+itmid+"</div>"+
-                "</div>";
-               
+    const itmid = document.getElementById("_itmid0").value;
+    const img = document.getElementById("_qrimg").src;
+    const win = window.open("", "_blank");
+
+    const printpage = `
+        <div style='width: 100%; text-align: center;'>
+            <img src='${img}' style='width: 100%; margin-bottom: 0px;' />
+            <div style='font-family: monospace; font-size: 48px; font-weight: bold; margin-top: 0px;'>${itmid}</div>
+        </div>
+    `;
+
     win.document.write(printpage);
-    
     win.print();
     win.close();
-   
 }
 
 async function staAddStatusHist(itmid) {
-    var uid = document.getElementById("_uid0").value;
-    var stasel = document.getElementById("_stasel").value;
-    var stacom = document.getElementById("_stacom0").value;
-    
-    if (stasel == "" ) {
+    const uid = document.getElementById("_uid0").value;
+    const stasel = document.getElementById("_stasel").value;
+    const stacom = document.getElementById("_stacom0").value;
+
+    if (!stasel) {
         alert("Please select a status");
         return;
     }
-    
-    if (stacom == "") {
+
+    if (!stacom) {
         alert("Please enter a comment");
         return;
     }
-    
-    var url = "/sta/hist/add";
-    var data = {
-        "itmid": parseInt(itmid),
-        "uid": parseInt(uid),
-        "staid" : parseInt(stasel),
-        "txt" : stacom
+
+    const data = {
+        itmid: parseInt(itmid),
+        uid: parseInt(uid),
+        staid: parseInt(stasel),
+        txt: stacom,
     };
-    
+
     try {
-        const response = await fetch(url, {
+        const response = await fetch("/sta/hist/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -157,7 +146,6 @@ async function staAddStatusHist(itmid) {
 
         window.location.reload();
     } catch (error) {
-       alert("Error: " + error);
+        alert("Error: " + error.message);
     }
-
 }

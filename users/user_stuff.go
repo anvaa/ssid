@@ -16,14 +16,13 @@ func User_GetById(id any) (Users, error) {
 	return userbyid, nil
 }
 
-func User_GetEmailById(id any) (string, error) {
-	var userbyid Users
-	err := UsrDB.Select("email").First(&userbyid, id)
+func User_GetEmailById(userid any) (string, error) {
+	var emailbyid Users
+	err := UsrDB.Select("email").First(&emailbyid, userid)
 	if err.Error != nil {
 		return "", err.Error
 	}
-
-	return userbyid.Email, nil
+	return emailbyid.Email, nil
 }
 
 func User_GetByEmail(email string) (Users, error) {
@@ -36,9 +35,9 @@ func User_GetByEmail(email string) (Users, error) {
 }
 
 func Users_Count() int {
-	var user_count int64
-	UsrDB.Model(&Users{}).Count(&user_count)
-	return int(user_count)
+	var users_count int64
+	UsrDB.Model(&Users{}).Count(&users_count)
+	return int(users_count)
 }
 
 func CreateNewUser(nu *Users, url string) error {

@@ -40,30 +40,28 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <div class="div-header">Serial</div>
-                <input type="text" id="_itmserial0" class="edit-text" placeholder="Serial" tabindex="0" onkeydown="isEdit()" />
+            <td colspan="3">
+                <div class="div-header">Description</div>
+                <textarea id="_itmdesc0" maxlength="255" class="edit-desc" placeholder="Description" onkeydown="isEdit()">{{ .itmw.Description }}</textarea>
             </td>
+        </tr>
+        <tr>
             <td>
                 <div class="div-header">Price</div>
                 <input type="text" id="_itmprice0" class="edit-text" placeholder="Price" style="width: 80px;" onkeydown="isEdit()" />
             </td>
-        </tr>
-            <td colspan="3">
-                <div class="div-header">Description</div>
-                <!-- <input type="text" id="_itmdesc0" maxlength="255" class="edit-desc" placeholder="Description" onkeydown="isEdit()" /> -->
-                <textarea id="_itmdesc0" maxlength="255" class="edit-desc" placeholder="Description" onkeydown="isEdit()">{{ .itmw.Description }}</textarea>
+            <td>
+                <div class="div-header">Serial</div>
+                <input type="text" id="_itmserial0" class="edit-text" placeholder="Serial" tabindex="0" onkeydown="isEdit()" />
             </td>
-        <tr>
         </tr>
         <tr>
             <td>
                 <input type="hidden" id="_itmid0" value="0" />
                 <input type="hidden" id="_stasel" value="1" />
                 <input type="hidden" id="_itmuid0" value="{{ .user.Id }}" />
-                <input type="button" value="Add New" class="lst-btn" onclick="itmAddUpdate()" />
+                <input type="button" value="Add New" class="lst-btn" style="margin-top:5px;" onclick="itmAddUpdate()" />
             </td>
-            
         </tr>
     </table>
 </div>
