@@ -19,3 +19,5 @@ runme.sh
 *.db
 *.yaml
 .DS_Store
+bin/ssid_darwin.arm64
+bin/ssid_linux.amd64

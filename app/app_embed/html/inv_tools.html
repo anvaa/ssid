@@ -1,5 +1,4 @@
 {{ template "inv_menu.html" . }}
-<input type="hidden" id="_isedit" value="" />
 <div class="neworedit-header">Tools</div>
 <div class="flex-container">
     <div class="lst-box">
@@ -10,7 +9,7 @@
                 <input type="hidden" id="_locid0" value="0" />
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Add/Update" onclick="lstAddUpd('loc')" class="lst-btn"/>
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
             </div>
             <div >
                 <select Name="_locs" size="10" class="tools-select" > 
@@ -22,7 +21,7 @@
                 </select> 
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Delete" onclick="lstDel('loc')" class="lst-btn-del"/>
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
             </div>
         </div>
     </div>
@@ -36,7 +35,7 @@
                 <input type="hidden" id="_typid0" value="0" />
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Add/Update" onclick="lstAddUpd('typ')" class="lst-btn"/>
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
             </div>
             <div >
                 <select Name="_typs" size="10" class="tools-select" >
@@ -48,7 +47,7 @@
                 </select> 
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Delete" onclick="lstDel('typ')" class="lst-btn-del"/>
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
             </div>
         </div>
     </div>
@@ -62,7 +61,7 @@
                 <input type="hidden" id="_manid0" value="0" />
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Add/Update" onclick="lstAddUpd('man')" class="lst-btn"/>
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
             </div>
             <div >
                 <select Name="_mans" size="10" class="tools-select" >
@@ -74,7 +73,7 @@
                 </select> 
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Delete" onclick="lstDel('man')" class="lst-btn-del"/>
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
             </div>
         </div>
     </div>
@@ -88,7 +87,7 @@
                 <input type="hidden" id="_staid0" value="0" />
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Add/Update" onclick="slstAddUpd('sta')" class="lst-btn"/>
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
             </div>
             <div >
                 <select Name="_stats" size="10" class="tools-select" >
@@ -100,7 +99,7 @@
                 </select> 
             </div>
             <div style="text-align: center;">
-                <input type="button" value="Delete" onclick="lstDel('sta')" class="lst-btn-del"/>
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
             </div>
         </div>
     </div>

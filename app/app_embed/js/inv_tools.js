@@ -1,4 +1,8 @@
 
+var isedit;
+var selTxt;
+var selId;
+
 function resetPage() {
     window.location.reload();
     return;
@@ -6,61 +10,56 @@ function resetPage() {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        var iseditval = document.getElementById("_isedit").value;
-        if (iseditval == "") {
+        
+        if (isedit == "") {
             return;
         }
-        if (iseditval == "loc") {
-            locAddUpd();
-        }
-        if (iseditval == "typ") {
-            typAddUpd();
-        }
-        if (iseditval == "man") {
-            manAddUpd();
-        }
-        if (iseditval == "sta") {
-            staAddUpd();
-        }
+        selTxt = document.getElementById("_"+isedit+"txt0").value;
+        lstAddUpd();
     }
 });
 
-function isEdit(editval) {
-    document.getElementById("_isedit").value = editval;
+function isEdit(val) {
+    isedit = val;
 }
 
 // LOCATIONS //
 function locSel(id) {
-    
-    document.getElementById("_loctxt0").value = document.getElementById("_selloc"+id).value;
-    document.getElementById("_locid0").value = id;
+    isedit = 'loc';
+    selId = id
+    selTxt = document.getElementById("_selloc"+selId).value;
+    document.getElementById("_loctxt0").value = selTxt;
 } 
 
 // TYPES //
 function typSel(id) {
-    
-    document.getElementById("_typtxt0").value = document.getElementById("_seltyp"+id).value;
-    document.getElementById("_typid0").value = id;
+    isedit = 'typ';
+    selId = id
+    selTxt = document.getElementById("_seltyp"+selId).value;
+    document.getElementById("_typtxt0").value = selTxt;
+    // document.getElementById("_typid0").value = id
 } 
 
 // MANUFACT //
 function manSel(id) {
-    
-    document.getElementById("_mantxt0").value = document.getElementById("_selman"+id).value;
-    document.getElementById("_manid0").value = id;
+    isedit = 'man';
+    selId = id
+    selTxt = document.getElementById("_selman"+selId).value;
+    document.getElementById("_mantxt0").value = selTxt;
 } 
 
 // STATUS //
 function staSel(id) {
-    
-    document.getElementById("_statxt0").value = document.getElementById("_selsta"+id).value;
-    document.getElementById("_staid0").value = id;
+    isedit = "sta";
+    selId = id
+    selTxt = document.getElementById("_selsta"+selId).value;
+    document.getElementById("_statxt0").value = selTxt;
 } 
 
 
-async function lstAddUpd(lstitm) {
-    var txt = document.getElementById("_"+lstitm+"txt0").value;
-    var id = document.getElementById("_"+lstitm+"id0").value;
+async function lstAddUpd() {
+    var txt = document.getElementById("_"+isedit+"txt0").value;
+    var id = document.getElementById("_"+isedit+"id0").value;
 
     if (txt == "") {
         alert("Status: Nothing to add or update");
@@ -78,7 +77,7 @@ async function lstAddUpd(lstitm) {
     };
     
     try {
-        const response = await fetch("/"+lstitm+"/addupd", {
+        const response = await fetch("/"+isedit+"/addupd", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -91,21 +90,20 @@ async function lstAddUpd(lstitm) {
         
         window.location.href = responseData.url;
     } catch (error) {
-        alert("Add/Update "+lstitm+" failed: " + error.message);
+        alert("Add/Update "+isedit+" failed: " + error.message);
     }
 }
 
-async function lstDel(lstitm) {
+async function lstDel() {
 
-    var txt = document.getElementById("_"+lstitm+"txt0").value;
-    var id = document.getElementById("_"+lstitm+"id0").value;
+    var txt = document.getElementById("_"+isedit+"txt0").value;
 
     if (txt == "") {
         alert("Nothing to delete");
         return; 
     }
 
-    if (id == "1212090603") {
+    if (selId == "1212090603") {
         alert("Can't delete status 'New'");
         return;
     }
@@ -115,12 +113,12 @@ async function lstDel(lstitm) {
     }
 
     var data = {
-        "id": id,
+        "id": selId,
         "url": window.location.pathname,
     };
     
     try {
-        const response = await fetch("/"+lstitm+"/delete", {
+        const response = await fetch("/"+isedit+"/delete", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -133,6 +131,6 @@ async function lstDel(lstitm) {
 
         window.location.href = responseData.url;
     } catch (error) {
-        alert("Delete "+lstitm+" failed: " + error.message);
+        alert("Delete "+isedit+" failed: " + error.message);
     }
 }
