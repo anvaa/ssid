@@ -18,3 +18,4 @@ runme.sh
 
 *.db
 *.yaml
+.DS_Store
