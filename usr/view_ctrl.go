@@ -28,6 +28,7 @@ func Info(c *gin.Context) {
 		"company": appinfo.AppName,
 		"loctime": app_conf.GetLocalTime(),
 		"apptime": app_conf.RunTime(),
+		"backbtn": "/app",
 	})
 }
 

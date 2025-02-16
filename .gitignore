@@ -15,6 +15,7 @@ app.key
 runme.sh
 /static
 /data
+/assets
 
 *.db
 *.yaml
