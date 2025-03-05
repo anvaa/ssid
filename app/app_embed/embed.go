@@ -16,15 +16,12 @@ var static embed.FS
 
 func App_EmbedFiles() error {
 
-	if !srv_conf.IsGinModDebug() {
-
-		// write app_embed to disk
-		err := filefunc.WriteWebFSToDisk(srv_conf.StaticDir, static)
-		if err != nil {
-			return err
-		}
+	// write app_embed to disk
+	err := filefunc.WriteWebFSToDisk(srv_conf.StaticDir, static)
+	if err != nil {
+		return err
 	}
-
+	
 	return nil
 
 }

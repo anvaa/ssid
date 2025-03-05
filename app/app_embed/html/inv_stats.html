@@ -2,7 +2,8 @@
 <div class="neworedit-header">Statistics</div>
 
 {{ if gt .stats.Itm_count 0  }}
-<div class="div-qr">
+<!-- <div class="div-qr"> -->
+    <div class="lst-box">
     <div class="stat-info">There are {{ .stats.Itm_count }} items in the database with a total cost of {{ .stats.Total_Price }}</div>
     <div class="stat-info">First item added {{  .stats.FirstDate }}, last one {{ .stats.LastDate }}</div>
     <br>
@@ -16,8 +17,5 @@
 {{ else }}
 <div class="stat-info">There are no items in the database.</div>
 {{ end }}
-
-
-
 
 {{ template "footer.html" . }}

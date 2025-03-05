@@ -13,15 +13,11 @@ import (
 var static embed.FS
 
 func User_EmbedFiles() error {
-
-	if !srv_conf.IsGinModDebug() {
-		
-		// write user_embed to disk
-		err := filefunc.WriteWebFSToDisk(srv_conf.StaticDir, static)
-		if err != nil {
-			return err
-		}
-
+	
+	// write user_embed to disk
+	err := filefunc.WriteWebFSToDisk(srv_conf.StaticDir, static)
+	if err != nil {
+		return err
 	}
 
 	return nil

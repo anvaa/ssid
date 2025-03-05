@@ -47,7 +47,7 @@ func userDBInit(db *gorm.DB) error {
 	}
 
 	if count == 0 {
-		if err := insertDefaultData(db); err != nil {
+		if err := InsertDefaultData(db); err != nil {
 			return err
 		}
 	}
@@ -55,11 +55,28 @@ func userDBInit(db *gorm.DB) error {
 	return nil
 }
 
-func insertDefaultData(db *gorm.DB) error {
+func syncUserDB(db *gorm.DB) error {
+	SyncUserDB(db)
+	return nil
+}
+
+func InsertDefaultData(db *gorm.DB) error {
+	if err := insertAdminData(db); err != nil {
+		return err
+	}
+
+	if err := insertUserData(db); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func insertAdminData(db *gorm.DB) error {
 	adminUser := Users{
 		Id:       1212090603,
 		Email:    "admin@ssid.loc",
-		Password: "$2a$10$10ZlTiAVW7EkKMp4559RPuv91.O9tLO7cx6azy72W8AuCBDST8.de",
+		Password: "$2a$10$FZoSUNhpWs9L1MXS3GwTA.1FF2K5ICaTzJgKKmda513hTNRYYrV4m",
 		Role:     "admin",
 		IsAuth:   true,
 		AccessTime:  24600,
@@ -72,7 +89,7 @@ func insertDefaultData(db *gorm.DB) error {
 	link := Links{
 		Id:     1212090602,
 		Url:    "/v/newusers",
-		UserId: adminUser.Id,
+		UserId: 1212090603,
 	}
 
 	if err := db.Create(&link).Error; err != nil {
@@ -82,7 +99,30 @@ func insertDefaultData(db *gorm.DB) error {
 	return nil
 }
 
-func syncUserDB(db *gorm.DB) error {
-	SyncUserDB(db)
+func insertUserData(db *gorm.DB) error {
+	adminUser := Users{
+		Id:       1212090602,
+		Email:    "user@ssid.loc",
+		Password: "$2a$10$UGMEocTQjWkNArdx2qsyiOA6yWS69Qq7o78iMrhJKmz6vpkeKiwzy",
+		Role:     "user",
+		IsAuth:   true,
+		AccessTime:  24600,
+	}
+
+	if err := db.Create(&adminUser).Error; err != nil {
+		return err
+	}
+
+	link := Links{
+		Id:     1212090601,
+		Url:    "/app",
+		UserId: 1212090602,
+	}
+
+	if err := db.Create(&link).Error; err != nil {
+		return err
+	}
+
 	return nil
 }
+

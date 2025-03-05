@@ -8,7 +8,7 @@ import (
 var StartTime int64
 
 var Company string = "Raadig AS"
-var AppName string = "ssid"
+var AppName string = "SSID"
 var AppNameLong string = "super simple inventory database"
 var Version string = time.Now().Format("060102")
 
