@@ -75,9 +75,9 @@
                         </td>
                         <td>
                             <div>
-                                <div class="td-hist" style="border: 0px;">{{ .itmw.Typ }}</div>
-                                <div class="td-hist" style="border: 0px;">SN {{ .itmw.Serial }}</div>
-                                <div class="td-hist" style="border: 0px;">ID {{ .itmw.Itmid }}</div>
+                                <div class="td-hist" style="border: 0px;font-size: medium;">{{ .itmw.Typ }}</div>
+                                <div class="td-hist" style="border: 0px;font-size: medium;">SN {{ .itmw.Serial }}</div>
+                                <div class="td-hist" style="border: 0px;font-size: medium;">ID {{ .itmw.Itmid }}</div>
                             </div>
                         </td>
                     </tr>
@@ -93,9 +93,8 @@
             <div class="bar-div">
                 <input type="hidden" id="_barimg0" value="/bar_img/{{ .itmw.Itmid }}.png" />
                 <img id="_barimg" src="/bar_img/{{ .itmw.Itmid }}.png" class="bar-img" />
-                <div class="td-hist" style="border: 0px;">{{ .itmw.Serial }}</div>
+                <div class="td-hist" style="border: 0px;font-size: medium;">{{ .itmw.Serial }}</div>
                 <div>
-                    <!-- <input type="hidden" id="_barimg0" value="/bar_img/{{ .itmw.Itmid }}.png" /> -->
                     <input type="button" value="Print barcode" onclick="imgPrint('_barimg')" class="lst-btn" style="width: 120px;" />
                 </div>
             </div>
