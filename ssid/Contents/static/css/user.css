@@ -1,0 +1,167 @@
+body {
+    background-color: white;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number] {
+    width: 300px;
+    padding: 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+label, select {
+    padding: 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 15px;
+    width: fit-content;
+}
+
+select {
+    font-size: 20px;
+    width: fit-content !important;
+}
+
+.menubutton, .subbutton, .delbutton, .authbutton {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.menubutton {
+    border-color: white;
+    font-size: 15px;
+}
+
+.menubutton:hover {
+    background-color: white;
+    color: black;
+}
+
+.delbutton {
+    font-size: 10px;
+}
+
+.delbutton:hover {
+    background-color: red;
+    border-color: orangered;
+}
+
+.authbutton {
+    font-size: 10px;
+}
+
+.errmessage {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: monospace;
+    width: fit-content;
+    padding: 3px 5px;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+.admin-text, .info-text, .topmenu-text {
+    font-size: 15px;
+}
+
+.admin-text {
+    color: lightgrey;
+}
+
+.header-text, .header-text-count {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    color: black;
+    width: fit-content;
+    padding: 3px;
+}
+
+.act-text {
+    font-weight: bold;
+    font-size: 12px;
+    color: black;
+    padding: 3px;
+}
+
+.topmenu-text {
+    color: black;
+    text-align: right;
+    cursor: pointer;
+}
+
+.topmenu-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: black;
+    padding: 2px;
+    border-radius: 10px;
+}
+
+.list-header {
+    color: black;
+    padding: 5px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    width: fit-content;
+}
+
+.table-users, .td-list-users, .td-list-header {
+    font-family: monospace;
+    font-size: 15px;
+    text-align: left;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.table-users {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    color: black;
+}
+
+.td-list-header {
+    background-color: lightgray;
+}
+
+.form-edituser, .configbox, .configbox-inherit, .menubox {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    width: fit-content;
+}
+
+.form-edituser {
+    padding: 10px;
+    background-color: lightgray;
+    color: black;
+}
+
+.configbox-inherit {
+    width: inherit;
+}
+
+.menubox {
+    border-radius: 7px;
+    padding: 2px;
+    background-color: black;
+}
+
+.menu-tr {
+    padding-right: 5px;
+}

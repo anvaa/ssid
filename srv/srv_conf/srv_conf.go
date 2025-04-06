@@ -29,7 +29,7 @@ func WriteConfigFile(app_path string) error {
 
 	AppDir = app_path
 
-	srvConf.SetDefault("server_port", 5005)
+	srvConf.SetDefault("server_port", 88443)
 	srvConf.SetDefault("gin_mode", "release")
 	srvConf.SetDefault("app_dir", app_path)
 	srvConf.SetDefault("tls_keysize", 2048)

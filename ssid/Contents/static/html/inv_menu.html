@@ -1,0 +1,89 @@
+{{ template "header.html" . }}
+
+<div class="menu-flex-container">    
+    <div>
+        <img src="/media/ssid_logo.png" class="menu-logo">
+    </div>
+
+    <div class="menubutton" onclick="Home()" title="F1">
+        <table>
+            <tr>
+                <td>
+                    <img src="/media/database.png" class="menu-img">
+                </td>
+                <td>
+                    Items
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="menubutton" onclick="Search()" title="F2">
+        <table>
+            <tr>
+                <td>
+                    🔍
+                </td>
+                <td style="vertical-align: middle;height: inherit;">
+                    Search
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="menubutton" onclick="Stats()" title="F3">
+        <table>
+            <tr>
+                <td>
+                    <img src="/media/table-view.png" class="menu-img">
+                </td>
+                <td style="vertical-align: middle;height: inherit;">
+                   Statistics
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="menubutton" onclick="Tools()" title="F4">
+        <table>
+            <tr>
+                <td>
+                    🛠️
+                </td>
+                <td style="vertical-align: middle;height: inherit;">
+                    Tools
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="menubox" style="width: 100%;color: grey;text-align: center;font-family: monospace;">
+        {{.user.Email}}
+    </div>
+    
+    <div class="menubutton-info" onclick="Info()">
+        <table>
+            <tr>
+                <td>
+                    <img src="/media/info.png" class="menu-img">
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+            </tr>
+        </table>
+    </div>
+    <div class="menubutton" onclick="Logout()">
+        <table>
+            <tr>
+                <td>
+                    <img src="/media/toolbar-security.png" class="menu-img">
+                </td>
+                <td style="vertical-align: middle;height: inherit;">
+                    Logout
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="_info"></div>
+<script src="/js/inv_menu.js"></script>

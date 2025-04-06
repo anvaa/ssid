@@ -1,0 +1,30 @@
+{{ template "user_header.html" . }}
+<script src="/js/navbar.js"></script>
+    <div class="menubox">
+        <table >
+            <tr>
+                {{ if eq .user.Role "admin" }}
+                <th class="menu-tr">
+                    <input type="button" value="New users" class="menubutton" onclick="newUserClick()" />
+                </th>
+                <th class="menu-tr">
+                    <input type="button" value="Manage users" class="menubutton" onclick="mngusersClick()" />
+                </th>
+                <th style="width: 50%; text-align: right;">
+                    <label class="admin-text" title="Gin mode">
+                        Mode: {{ .ginmode }}
+                    </label>
+                </th>
+                {{ end }}
+                <th style="width: 100%; text-align: right;" class="menu-tr">
+                    <label class="admin-text" title="User role:username">
+                        {{ .user.Role }}: {{ .user.Email }}
+                    </label>
+                </th>
+                <th class="menu-tr">
+                    <input type="button" value="Logout" class="menubutton" onclick="logoutClick()" />
+                </th>
+            </tr>
+        </table>
+    </div>
+    <div id="_message" class="errmessage"></div>
