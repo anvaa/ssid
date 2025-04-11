@@ -26,34 +26,37 @@ function isEdit(val) {
 // LOCATIONS //
 function locSel(id) {
     isedit = 'loc';
-    selId = id
+    selId = id;
     selTxt = document.getElementById("_selloc"+selId).value;
     document.getElementById("_loctxt0").value = selTxt;
+    document.getElementById("_locid0").value = id;
 } 
 
 // TYPES //
 function typSel(id) {
     isedit = 'typ';
-    selId = id
+    selId = id;
     selTxt = document.getElementById("_seltyp"+selId).value;
     document.getElementById("_typtxt0").value = selTxt;
-    // document.getElementById("_typid0").value = id
+    document.getElementById("_typid0").value = id;
 } 
 
 // MANUFACT //
 function manSel(id) {
     isedit = 'man';
-    selId = id
+    selId = id;
     selTxt = document.getElementById("_selman"+selId).value;
     document.getElementById("_mantxt0").value = selTxt;
+    document.getElementById("_manid0").value = id;
 } 
 
 // STATUS //
 function staSel(id) {
     isedit = "sta";
-    selId = id
+    selId = id;
     selTxt = document.getElementById("_selsta"+selId).value;
     document.getElementById("_statxt0").value = selTxt;
+    document.getElementById("_staid0").value = id;
 } 
 
 
