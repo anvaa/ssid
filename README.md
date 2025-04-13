@@ -29,8 +29,10 @@ I wrote this to inventory my office and server cabinet using a $60 bar-code scan
 
 ## Using SSID
   
-- When you see the  Login' page, click on the 'Signup' link at the bottom.
-  - First user will be administrator (admin only work with users, not inventory).
+- Login and new users.
+  - There are two default users:
+    - admin@ssid.loc/ssidadmin25 (admin only do user admin, not inventory).
+    - user@ssid.loc/ssiduser25 (only works with inventory)
   - After adding aditional users, login as admin and authenticate them.
 - Login as a user and go to the 'Tools' menu.
   - Populate the locations, type, manufact and status properties.
