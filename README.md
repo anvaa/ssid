@@ -23,7 +23,7 @@ I wrote this to inventory my office and server cabinet using a $60 bar-code scan
 
 - Create a folder for the application and put the binary in it.
   - SSID will create sub-folders and files at this location and need the right privileges.
-- After starting SSID you can access the start page in your browser at <https://ipaddress:88443>.
+- After starting SSID you can access the start page in your browser at `https://localhost:5443`.
   - SSID generates it's own TLS-crtificates.
   - You can edit the port number in the srv.yaml file in the app folder
 
@@ -31,8 +31,8 @@ I wrote this to inventory my office and server cabinet using a $60 bar-code scan
   
 - Login and new users.
   - There are two default users:
-    - admin@ssid.loc/ssidadmin25 (admin only do user admin, not inventory).
-    - user@ssid.loc/ssiduser25 (only works with inventory)
+    - `admin@ssid.loc`/ssidadmin25 (admin only do user admin, not inventory).
+    - `user@ssid.loc`/ssiduser25 (only works with inventory)
   - After adding aditional users, login as admin and authenticate them.
 - Login as a user and go to the 'Tools' menu.
   - Populate the locations, type, manufact and status properties.
