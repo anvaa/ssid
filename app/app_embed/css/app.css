@@ -107,14 +107,15 @@ body {
 }
 
 .new-btn {
-    padding: 2px;
+    padding: 1px;
     border-radius: 5px;
     background-color: rgb(42, 170, 42);
     color: black;
     text-align: center;
     vertical-align: middle;
     font-weight: bold;
-    width: 80px;
+    width: 100px;
+    height: 100%;
 }
 
 .footer {

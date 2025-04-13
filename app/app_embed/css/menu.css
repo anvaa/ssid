@@ -18,7 +18,7 @@
 .menubutton-info {
     border: 1px solid white;
     color: white;
-    padding: 0px;
+    padding: 5px;
     margin-right: 5px;
     vertical-align: middle;
     align-content: center;
@@ -74,4 +74,21 @@
     height: 30px;
     margin-right: 5px;
     margin-top: 5px;
+}
+
+.menubox-user {
+
+    color: grey;
+    border: 2px solid transparent;
+    font-family: monospace;
+    
+    padding: 3px;
+}
+
+.menubtn-new {
+    border: 2 px solid red;
+    
+    width: 100%;
+    text-align: center;
+
 }

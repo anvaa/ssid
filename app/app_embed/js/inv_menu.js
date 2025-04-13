@@ -3,9 +3,11 @@ document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         resetPage();
     }
-});
 
-document.addEventListener("keydown", function (event) {
+    if (event.key == "+") {
+        itmAddNewClick();
+    }
+
     if (event.key === "F1") {
         Home();
     }
@@ -49,4 +51,18 @@ function Info() {
 
 function Logout() {
     window.location.href = "/logout";
+}
+
+function itmAddNewClick() {
+    
+    var url = "/itm/new";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            window.location.href = "/itm/new";
+           
+        }
+    }
+    xhr.send();
 }

@@ -54,7 +54,12 @@
             </tr>
         </table>
     </div>
-    <div class="menubox" style="width: 100%;color: grey;text-align: center;font-family: monospace;">
+
+    <div class="menubtn-new">
+        <input type="button" id="_btn_new" class="new-btn" onclick="itmAddNewClick()" value="New item" title="+" />
+    </div>
+
+    <div class="menubox-user" >
         {{.user.Email}}
     </div>
     
