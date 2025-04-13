@@ -23,13 +23,11 @@ import (
 
 var app_dir string = getWD()
 var Hostip []string
-var is_app bool = false
 
 var CloseChan = make(chan os.Signal, 1)
 
 func init() {
 
-	readArgs()
 	setupCloseHandler()
 
 	// Check/make srv.yaml
@@ -59,15 +57,9 @@ func main() {
 	r := server.InitWebServer()
 
 	addr := fmt.Sprintf(":%d", srv_conf.GetInt("server_port"))
-	go printsrvinfo(addr)
+	go printsrvinfo("https", addr)
 
-	if is_app {
-		log.Println("Running as app ...")
-		r.Run(addr)
-	} else {
-		log.Println("Running as server ...")
-		r.RunTLS(addr, srv_sec.CertFile, srv_sec.KeyFile)
-	}
+	r.RunTLS(addr, srv_sec.CertFile, srv_sec.KeyFile)
 
 }
 
@@ -80,40 +72,12 @@ func getWD() string {
 	return wd
 }
 
-func readArgs() {
-	// Check for command line arguments
-	if len(os.Args) > 1 {
-		for i := 1; i < len(os.Args); {
-			switch os.Args[i] {
-			case "-h", "--help":
-				fmt.Println("Usage: srv [options]")
-				fmt.Println("Options:")
-				fmt.Println("  -h, --help\tShow this help message")
-				fmt.Println("  -a, --app\tRun as app")
-				os.Exit(0)
-			case "-a", "--app":
-				_ = os.Setenv("is_app", "true")
-				is_app = true
-			default:
-				fmt.Printf("Unknown option: %s\n", os.Args[i])
-				os.Exit(1)
-			}
-			i++ // Increment the loop variable
-		}
-	}
-}
-
-func printsrvinfo(adr string) {
+func printsrvinfo(proto, adr string) {
 
 	Hostip, _ = global.GetIPv4Addresses()
 
-	mode := "https"
-	if is_app {
-		mode = "http"
-	}
-
 	for _, ip := range Hostip {
-		log.Printf("Webserver %s://%s%s", mode, ip, adr)
+		log.Printf("Webserver %s://%s%s", proto, ip, adr)
 	}
 }
 

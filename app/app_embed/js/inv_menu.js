@@ -17,7 +17,7 @@ document.addEventListener("keydown", function (event) {
     }
 
     if (event.key === "F3") {
-        Reports();
+        Stats();
     }
 
     if (event.key === "F4") {
