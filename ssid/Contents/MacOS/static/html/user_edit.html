@@ -1,0 +1,109 @@
+{{ template "user_navbar.html" . }}
+<div class="user-home">
+    <table>
+        <tr>
+            <td class="header-text">Edit {{ .edituid.Role }}: {{ .edituid.Email }}</td>
+            <td>&nbsp&nbsp
+                {{ if eq .edituid.Id 1 }}
+                {{ else }}
+                <button value="{{ .edituid.Id }}" 
+                        class="delbutton"
+                        onclick="delClick()">
+                        Delete user
+                </button>
+                {{ end }}
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="hidden" id="_uid" value="{{ .edituid.Id }}" />
+    <input type="hidden" id="_email" value="{{ .edituid.Email }}" />
+    {{ if eq .edituid.Id 1 }}
+    {{ else }}
+    <div class="configbox">
+        <form id="updateurl" class="form-edituser">
+            <label for="_role">User 'redirect to' url</label>
+            <table>
+                <tr>
+                    <td style="text-align: right;">
+                        <label for="_url">URL</label>
+                        <input type="text" id="_url" value="{{ .url }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <label for="_btn" style="color: lightgrey;">URL</label>
+                        <input type="button" value="Update URL" class="subbutton" onclick="setUrl()" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <br>
+    <div class="configbox">
+        <form id="updateuser" class="form-edituser">
+            <label for="_role">Role</label>
+            <select id="_role" >
+                {{ if eq .edituid.Role "admin" }}
+                    <option value="admin" selected>admin</option>
+                    <option value="user">user</option>
+                    <option value="superuser">superuser</option>
+                {{ else }}
+                <option value="superuser">superuser</option>
+                    <option value="user" selected>user</option>
+                {{ end }}
+            </select>
+            <input type="button" value="Update role" class="subbutton" onclick="setRole()" />
+        </form>
+    </div>
+    <br>
+    <div class="configbox">
+        <form id="updateaccesstime" class="form-edituser">
+            <table>
+                <tr>
+                    <td style="text-align: right;">
+                        <label for="_min">Minutes</label>
+                        <input type="text" id="_min" value="{{ .act }}" />
+                        <div style="text-align: center;">hour=60, day=1440</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <label for="_btn" style="color: lightgrey;">Minutes</label>
+                        <input type="button" value="Update access time" class="subbutton" onclick="setAccessTime()" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <br>
+    {{ end }}
+    <div class="configbox">
+    <form id="changepassword" action="/user/psw" method="post"  class="form-edituser">
+        <table>
+            <tr>
+                <td style="text-align: right;">
+                  <label for="_password1">Password</label>
+                  <input type="password" id="_password1" required />
+                </td>
+              </tr>
+              <tr>
+                  <td style="text-align: right;">
+                    <label for="_password2">Confirm password</label>
+                    <input type="password" id="_password2" required />
+                  </td>
+                </tr>
+              <tr>
+            <tr>
+                <td>
+                    <label for="submit" style="color: lightgrey;">Confirm password</label>
+                    <input type="button" value="Set new password" class="subbutton" onclick="setPswClick()" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+</div>
+<script src="/js/{{ .js }}"></script>
+</body>
+</html>

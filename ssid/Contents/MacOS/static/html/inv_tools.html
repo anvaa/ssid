@@ -1,0 +1,109 @@
+{{ template "inv_menu.html" . }}
+<div class="neworedit-header">Tools</div>
+<div class="flex-container">
+    <div class="lst-box">
+        <div class="div-header">Locations ({{ .c_locs }})</div>
+        <div class="container" >
+            <div >
+                <input type="text" id="_loctxt0" value="" class="lst-text" placeholder="New Location" onkeydown="isEdit('loc')" />
+                <input type="hidden" id="_locid0" value="0" />
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
+            </div>
+            <div >
+                <select Name="_locs" size="10" class="tools-select" > 
+                    {{ if .locs }}
+                    {{ range .locs }}
+                    <option id="_selloc{{ .Id }}" value="{{ .Locname }}" onclick="locSel('{{ .Id }}')">{{ .Locname }}</option>
+                    {{ end }}
+                    {{ end }}
+                </select> 
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="lst-box">
+        
+        <div class="div-header">Item Types ({{ .c_typs }})</div>
+        <div class="container" >
+            <div >
+                <input type="text" id="_typtxt0" value="" class="lst-text" placeholder="New Type" onkeydown="isEdit('typ')" />
+                <input type="hidden" id="_typid0" value="0" />
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
+            </div>
+            <div >
+                <select Name="_typs" size="10" class="tools-select" >
+                    {{ if .typs }}
+                    {{ range .typs }}
+                    <option id="_seltyp{{ .Id }}" value="{{ .Typname }}" onclick="typSel('{{ .Id }}')">{{ .Typname }}</option>
+                    {{ end }}
+                    {{ end }}
+                </select> 
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="lst-box">
+        
+        <div class="div-header">Manufacts ({{ .c_mans }})</div>
+        <div class="container" >
+            <div >
+                <input type="text" id="_mantxt0" value="" class="lst-text" placeholder="New Manufact" onkeydown="isEdit('man')" />
+                <input type="hidden" id="_manid0" value="0" />
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
+            </div>
+            <div >
+                <select Name="_mans" size="10" class="tools-select" >
+                    {{ if .mans }}
+                    {{ range .mans }}
+                    <option id="_selman{{ .Id }}" value="{{ .Manname }}" onclick="manSel('{{ .Id }}')">{{ .Manname }}</option>
+                    {{ end }}
+                    {{ end }}
+                </select> 
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="lst-box">
+        <div class="div-header">Status ({{ .c_stats }})</div>
+        
+        <div class="container" >
+            <div >
+                <input type="text" id="_statxt0" value="" class="lst-text" placeholder="New Status" onkeydown="isEdit('sta')" />
+                <input type="hidden" id="_staid0" value="0" />
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Add/Update" onclick="lstAddUpd()" class="lst-btn"/>
+            </div>
+            <div >
+                <select Name="_stats" size="10" class="tools-select" >
+                    {{ if .stats }}
+                    {{ range .stats }}
+                    <option id="_selsta{{ .Id }}" value="{{ .Staname }}" onclick="staSel('{{ .Id }}')">{{ .Staname }}</option>
+                    {{ end }}
+                    {{ end }}
+                </select> 
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{{ template "footer.html" . }}

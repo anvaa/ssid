@@ -1,0 +1,160 @@
+{{ template "user_navbar.html" . }}
+<table class="table-users">
+    <thead>
+        <td class="header-text" colspan="3">Authorized Users ({{ .countauth }})</td>
+    <tr>
+        <th class="td-list-header">ID</th>
+        <th class="td-list-header">User</th>
+        <th class="td-list-header">Role</th>
+        <th class="td-list-header"></th>
+        <th class="td-list-header">Created</th>
+        <th  class="td-list-header">Updates</th>
+    </tr>
+    </thead>
+    <body>
+        {{ range .authusers }}
+        <tr>
+            <form class="authform">
+                <td class="td-list-users">
+                    {{ .Id }}
+                </td>
+                <td class="td-list-users">
+                    <a href="/v/user/{{ .Id }}" class="authbutton" title="Edit user">{{ .Email }}</a>
+                </td>
+                <td class="td-list-users">{{ .Role }}</td>
+                
+                <td class="td-list-users" style="text-align: center;">
+                    <input type="hidden" id="_auth{{ .Id }}" value="{{ .IsAuth }}" /> 
+                    {{ if eq .Id 1 }}
+                    {{ else }}
+                        
+                        {{ if .IsAuth }}
+                            <input type="button" class="authbutton" value="Unauthorize" onclick="setAuth('{{ .Id }}')" />
+                        {{ else }}
+                            <input type="button" class="authbutton" value="Authorize" onclick="setAuth('{{ .Id }}')" />
+                        {{ end }}
+                    {{ end }}
+                </td>
+                <td class="td-list-users">
+                    <script>
+                        document.write(new Date({{ .CreatedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+                <td class="td-list-users" title="Last updates">
+                    <script>
+                        document.write(new Date({{ .UpdatedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+            </form>
+        </tr>
+        {{ end }}
+    </body>
+</table>
+<br>
+<table class="table-users">
+    <thead>
+        <td class="header-text" colspan="3">Unauthorized Users ({{ .countunauth }})</td>
+    <tr>
+        <th class="td-list-header">ID</th>
+        <th class="td-list-header">User</th>
+        <th class="td-list-header">Role</th>
+        <th class="td-list-header"></th>
+        <th class="td-list-header">Created</th>
+        <th class="td-list-header">Updates</th>
+        
+    </tr>
+    </thead>
+    <body>
+        {{ range .unauthusers }}
+        <tr class="tr-list-users">
+            <form class="authform">
+                <td class="td-list-users">
+                    {{ .Id }}
+                </td>
+                <td class="td-list-users">
+                    <a href="/v/user/{{ .Id }}" class="authbutton" title="Edit user">{{ .Email }}</a>
+                </td>
+                <td class="td-list-users">{{ .Role }}</td>
+                
+                <td class="td-list-users" style="text-align: center;">
+                    <input type="hidden" id="_auth{{ .Id }}" value="{{ .IsAuth }}" /> 
+                    {{ if eq .Id 1 }}
+                    {{ else }}
+                        {{ if .IsAuth }}
+                        <input type="button" class="authbutton" value="Unauthorize" onclick="setAuth('{{ .Id }}')" />
+                        {{ else }}
+                        <input type="button" class="authbutton" value="Authorize" onclick="setAuth('{{ .Id }}')" />
+                        {{ end }}
+                    {{ end }}
+                </td>
+                <td class="td-list-users">
+                    <script>
+                        document.write(new Date({{ .CreatedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+                <td class="td-list-users" title="Last updates">
+                    <script>
+                        document.write(new Date({{ .UpdatedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+            </form>
+        </tr>
+        {{ end }}
+    </body>
+</table>
+<br>
+<table class="table-users">
+    <thead>
+        <td class="header-text" colspan="3">Deleted Users ({{ .countdel }})</td>
+    <tr>
+        <th class="td-list-header">ID</th>
+        <th class="td-list-header">User</th>
+        <th class="td-list-header">Role</th>
+        <th class="td-list-header">Created</th>
+        <th class="td-list-header">Updates</th>
+        <th class="td-list-header">Deleted</th>
+        
+    </tr>
+    </thead>
+    <body>
+        {{ range .delusers }}
+        <tr class="tr-list-users">
+            <form class="authform">
+                <td class="td-list-users">
+                    {{ .Id }}
+                </td>
+                <td class="td-list-users">
+                    {{ .Email }}
+                </td>
+                <td class="td-list-users">{{ .Role }}</td>
+                
+                <td class="td-list-users">
+                    <script>
+                        var date = new Date({{ .CreatedAt }});
+                        document.write(date.toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+                <td class="td-list-users">
+                    <script>
+                        document.write(new Date({{ .CreatedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+                <td class="td-list-users">
+                    <script>
+                        document.write(new Date({{ .UpdatedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+                <td class="td-list-users" title="Last updates">
+                    <script>
+t                        document.write(new Date({{ .DeletedAt }}).toISOString().slice(0, 19).replace('T', ' '));
+                    </script>
+                </td>
+            </form>
+        </tr>
+        {{ end }}
+    </body>
+</table>
+
+<script src="/js/{{ .js }}"></script>
+</body>
+</html>
