@@ -38,6 +38,8 @@ type DoSearch struct {
 	Typid int `json:"typid"`
 	Manid int `json:"manid"`
 	Staid int `json:"staid"`
+	Fdate string `json:"fdate"`
+	Tdate string `json:"tdate"`
 }
 
 type Stats struct {

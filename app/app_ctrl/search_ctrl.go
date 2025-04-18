@@ -13,11 +13,16 @@ func inv_DoSearch(srcvals app_models.DoSearch, isList bool) ([]app_models.ItemsW
 
 	// If search criteria is given, search for items.
 	if hasSearchCriteria(srcvals) {
+
+		srcvals.Fdate, srcvals.Tdate = dateAddHours(srcvals.Fdate, srcvals.Tdate)
+
 		itms, c_itms = Itms_SearchMulti(
 			global.IntToString(srcvals.Locid),
 			global.IntToString(srcvals.Typid),
 			global.IntToString(srcvals.Manid),
 			global.IntToString(srcvals.Staid),
+			srcvals.Fdate,
+			srcvals.Tdate,
 		)
 	} else {
 		itms = nil
@@ -30,8 +35,20 @@ func inv_DoSearch(srcvals app_models.DoSearch, isList bool) ([]app_models.ItemsW
 	return itmsw, c_itms
 }
 
-func hasSearchCriteria(srcvals app_models.DoSearch) bool {
-	return srcvals.Locid > 0 || srcvals.Typid > 0 || srcvals.Manid > 0 || srcvals.Staid > 0
+func hasSearchCriteria(vals app_models.DoSearch) bool {
+	return vals.Locid > 0 || vals.Typid > 0 || vals.Manid > 0 || vals.Staid > 0 || vals.Fdate != "" || vals.Tdate != ""
+}
+
+func dateAddHours(fdate, tdate string) (string,string) {
+	
+	if fdate != "" {
+		fdate = fdate + " 00:00:00"
+	}
+	if tdate != "" {
+		tdate = tdate + " 23:59:59"
+	}
+	
+	return fdate, tdate
 }
 
 func prepareItemsWeb(itms []app_models.Items, isList bool) []app_models.ItemsWeb {

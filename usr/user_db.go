@@ -76,6 +76,7 @@ func insertAdminData(db *gorm.DB) error {
 	adminUser := Users{
 		Id:       1212090603,
 		Email:    "admin@ssid.loc",
+		// ssidadmin25
 		Password: "$2a$10$FZoSUNhpWs9L1MXS3GwTA.1FF2K5ICaTzJgKKmda513hTNRYYrV4m",
 		Role:     "admin",
 		IsAuth:   true,
@@ -103,6 +104,7 @@ func insertUserData(db *gorm.DB) error {
 	adminUser := Users{
 		Id:       1212090602,
 		Email:    "user@ssid.loc",
+		// ssiduser25
 		Password: "$2a$10$UGMEocTQjWkNArdx2qsyiOA6yWS69Qq7o78iMrhJKmz6vpkeKiwzy",
 		Role:     "user",
 		IsAuth:   true,

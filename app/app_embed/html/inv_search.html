@@ -46,11 +46,17 @@
                         {{ end }}
                     </select>
                 </td>
+                <td>
+                    <input type="date" id="_fdate" title="From Date" onchange="itmSearch('')">
+                </td>
+                <td>
+                    <input type="date" id="_tdate" title="To Date" onchange="itmSearch('')">
+                </td>
             </tr>
         </table>
     </div>
     <div>
-        <input type="button" id="_prntbtn" class="lst-btn" value="Export to csv" onclick="itmSearch('PRINT')">
+        <input type="button" id="_prntbtn" class="lst-btn" style="height: 100%;" value="Export to csv" onclick="itmSearch('PRINT')">
     </div>
 </div>
 <div id="div_searchresult"></div>

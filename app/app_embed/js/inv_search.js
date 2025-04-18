@@ -16,15 +16,19 @@ async function itmSearch(srcval) {
     var typsel = document.getElementById("_typsel").value;
     var mansel = document.getElementById("_mansel").value;
     var stasel = document.getElementById("_stasel").value;
+    var fdate = document.getElementById("_fdate").value;
+    var tdate = document.getElementById("_tdate").value;
 
     var body = {
         "locid": parseInt(locsel),
         "typid": parseInt(typsel),
         "manid": parseInt(mansel),
         "staid": parseInt(stasel),
+        "fdate": fdate,
+        "tdate": tdate,
     };
 
-    if (locsel== 0 && typsel == 0 && mansel == 0 && stasel == 0) {
+    if (locsel== 0 && typsel == 0 && mansel == 0 && stasel == 0 && fdate == "" && tdate == "") {
         alert("Please select search criterias");
         return;
     }
