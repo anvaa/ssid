@@ -4,10 +4,11 @@ document.addEventListener("keydown", function (event) {
         resetPage();
     }
 
-    if (event.key == "+") {
+    // Ctrl + N
+    if (event.ctrlKey && event.key === "n") {
         itmAddNewClick();
-    }
-
+    }  
+    
     if (event.key === "F1") {
         Home();
     }

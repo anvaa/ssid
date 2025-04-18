@@ -5,7 +5,7 @@ body {
     color: black;
 }
 
-.th-itmlst, .btn-hist, .hist-head, .qr-print-btn {
+.btn-hist, .hist-head, .qr-print-btn {
     padding: 5px;
     border-radius: 5px;
     background-color: black;
@@ -14,9 +14,15 @@ body {
 }
 
 .th-itmlst {
-    padding: 3px;
+    padding: 5px;
     text-align: left;
     font-family: monospace;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+    color: white;
+    background-color: black;
 }
 
 .td-itmlst, .td-hist, .td-hist-hisdate {
