@@ -2,10 +2,10 @@
 <div class="neworedit-header">Tools</div>
 <div class="flex-container">
     <div class="lst-box">
-        <div class="div-header">Locations ({{ .c_locs }})</div>
-        <div class="container" >
+        <div class="div-header">{{ index .menutitle 0 }} ({{ .c_locs }})</div>
+        <div>
             <div >
-                <input type="text" id="_loctxt0" value="" class="lst-text" placeholder="New Location" onkeydown="isEdit('loc')" />
+                <input type="text" id="_loctxt0" value="" class="lst-text" placeholder="Add/Edit" onkeydown="isEdit('loc')" />
                 <input type="hidden" id="_locid0" value="0" />
             </div>
             <div style="text-align: center;">
@@ -28,10 +28,10 @@
 
     <div class="lst-box">
         
-        <div class="div-header">Types ({{ .c_typs }})</div>
-        <div class="container" >
+        <div class="div-header">{{ index .menutitle 1 }} ({{ .c_typs }})</div>
+        <div>
             <div >
-                <input type="text" id="_typtxt0" value="" class="lst-text" placeholder="New Type" onkeydown="isEdit('typ')" />
+                <input type="text" id="_typtxt0" value="" class="lst-text" placeholder="Add/Edit" onkeydown="isEdit('typ')" />
                 <input type="hidden" id="_typid0" value="0" />
             </div>
             <div style="text-align: center;">
@@ -54,10 +54,10 @@
 
     <div class="lst-box">
         
-        <div class="div-header">Manufacts ({{ .c_mans }})</div>
-        <div class="container" >
+        <div class="div-header">{{ index .menutitle 2 }} ({{ .c_mans }})</div>
+        <div>
             <div >
-                <input type="text" id="_mantxt0" value="" class="lst-text" placeholder="New Manufact" onkeydown="isEdit('man')" />
+                <input type="text" id="_mantxt0" value="" class="lst-text" placeholder="Add/Edit" onkeydown="isEdit('man')" />
                 <input type="hidden" id="_manid0" value="0" />
             </div>
             <div style="text-align: center;">
@@ -80,10 +80,9 @@
 
     <div class="lst-box">
         <div class="div-header">Status ({{ .c_stats }})</div>
-        
-        <div class="container" >
-            <div >
-                <input type="text" id="_statxt0" value="" class="lst-text" placeholder="New Status" onkeydown="isEdit('sta')" />
+        <div>
+            <div>
+                <input type="text" id="_statxt0" value="" class="lst-text" placeholder="Add/Edit" onkeydown="isEdit('sta')" />
                 <input type="hidden" id="_staid0" value="0" />
             </div>
             <div style="text-align: center;">
@@ -100,6 +99,26 @@
             </div>
             <div style="text-align: center;">
                 <input type="button" value="Delete" onclick="lstDel()" class="lst-btn-del"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="lst-box">
+        <div class="div-header">Menu names</div>
+        <div>
+            <div >
+                <input type="text" id="_mnutxt0" value="" class="lst-text" placeholder="Edit" maxlength="8" title="max 8 char" onkeydown="isEdit('mnu')" />
+                <input type="hidden" id="_mnuid0" value="0" />
+            </div>
+            <div style="text-align: center;">
+                <input type="button" value="Update" onclick="mnuTitles()" class="lst-btn"/>
+            </div>
+            <div >
+                <select Name="_mnuts" size="12" class="tools-select" >
+                    {{ range $index, $title := .menutitle }}
+                    <option id="_selmnu{{$index}}" value="{{$title}}" onclick="mnuSel('{{$index}}')">{{$title}}</option>
+                    {{ end}}
+                </select> 
             </div>
         </div>
     </div>

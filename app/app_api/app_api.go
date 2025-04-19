@@ -83,6 +83,15 @@ func App_Api(r *gin.Engine) *gin.Engine {
 
 	}
 
+	mnuGrp := r.Group("/menus")
+	{
+		mnuGrp.Use(middleware.RequireAuth)
+		mnuGrp.Use(middleware.IsAuth)
+
+		mnuGrp.POST("/updtitles", app_ctrl.Mnu_UpdTitels)
+
+	}
+
 	itmGrp := r.Group("/itm")
 	{
 		itmGrp.Use(middleware.RequireAuth)

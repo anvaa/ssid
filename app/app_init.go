@@ -7,6 +7,7 @@ import (
 	"app/app_conf"
 	"app/app_db"
 	"app/app_embed"
+	"app/app_menu"
 
 	"srv/filefunc"
 	"srv/srv_conf"
@@ -21,7 +22,15 @@ func AppInit(app_folder string) error {
 	}
 
 	// check for app config file
-	configFile := app_folder + "/app.yaml"
+	configFile := app_folder + "/mnu.yaml"
+	if !filefunc.IsExists(configFile) {
+		log.Println("No mnu.yaml file found. Creating", configFile)
+		app_menu.WriteDefaultConfig(app_folder)
+	}
+	app_menu.ReadMenuConfig() // read the config file
+
+	// check for app config file
+	configFile = app_folder + "/app.yaml"
 	if !filefunc.IsExists(configFile) {
 		log.Println("No app.yaml file found. Creating", configFile)
 		app_conf.WriteDefaultConfig(app_folder)

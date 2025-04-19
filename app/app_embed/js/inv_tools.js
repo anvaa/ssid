@@ -59,6 +59,47 @@ function staSel(id) {
     document.getElementById("_staid0").value = id;
 } 
 
+// MENU ITEMS //
+function mnuSel(id) {
+    isedit = "mnu";
+    selId = id;
+    selTxt = document.getElementById("_selmnu"+selId).value;
+    document.getElementById("_mnutxt0").value = selTxt;
+    document.getElementById("_mnuid0").value = id;
+}
+
+async function mnuTitles() {
+    var txt = document.getElementById("_mnutxt0").value;
+    var idx = document.getElementById("_mnuid0").value;
+
+    if (txt == "") {
+        alert("Menu titles: Nothing to update");
+        return; 
+    }
+    1
+    var data = {
+        "title": txt,
+        "idx": idx,
+        "url": window.location.pathname,
+    };
+
+    try {
+        const response = await fetch("/menus/updtitles", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+
+        const responseData = await response.json();
+        if (!response.ok) {
+            throw new Error(responseData.Error);
+        }
+
+        window.location.href = responseData.url;
+    } catch (error) {
+        alert("Update mnuitem"+id+" failed: " + error.message);
+    }
+}
 
 async function lstAddUpd() {
     var txt = document.getElementById("_"+isedit+"txt0").value;

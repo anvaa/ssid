@@ -3,6 +3,7 @@ package app_ctrl
 import (
 	"app/app_conf"
 	"app/app_models"
+	"app/app_menu"
 	"srv/filefunc"
 	"srv/srv_conf"
 
@@ -45,6 +46,8 @@ func Inv_Home(c *gin.Context) {
 
 func Inv_Tools(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
+
 	locs, c_locs := Loc_GetLocations()
 	typs, c_typs := Typ_GetTypes()
 	mans, c_mans := Man_GetManufacts()
@@ -57,6 +60,7 @@ func Inv_Tools(c *gin.Context) {
 		"js":      "inv_tools.js",
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
+		"menutitle": menutitle,
 
 		"locs":    locs,
 		"c_locs":  c_locs,
