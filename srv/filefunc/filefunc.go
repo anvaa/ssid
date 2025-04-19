@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"app/app_models"
+	"app/app_menu"
 
 )
 
@@ -110,7 +111,8 @@ func ExportSearchResult(filepath, filename string, items []app_models.ItemsWeb) 
 	defer f.Close()
 
 	// write the header
-	header := "Item ID,Location,Type,Serial,Manufact,Description,Status,Date\n"
+	menutitle := app_menu.GetMenuTitles()
+	header := fmt.Sprintf("%s,%s,%s,%s,%s,%s,%s,%s\n", "Item ID", menutitle[0], menutitle[1], "Serial", menutitle[2], "Description", "Status", "Date")
 	f.WriteString(header)
 
 	// write the items

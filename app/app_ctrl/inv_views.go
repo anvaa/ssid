@@ -33,6 +33,7 @@ func Inv_Start(c *gin.Context) {
 
 func Inv_Home(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
 	itmsw, c_itms := Itm_GetItems()
 
 	c.HTML(http.StatusOK, "inv_home.html", gin.H{
@@ -41,6 +42,7 @@ func Inv_Home(c *gin.Context) {
 		"c_itms":  c_itms,
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
+		"menutitle": menutitle,
 	})
 }
 
@@ -94,6 +96,7 @@ func Inv_Stats(c *gin.Context) {
 
 func Itm_New(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
 	locs, _ := Loc_GetLocations()
 	typs, _ := Typ_GetTypes()
 	mans, _ := Man_GetManufacts()
@@ -104,6 +107,7 @@ func Itm_New(c *gin.Context) {
 		"css":     "inv_lists.css",
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
+		"menutitle": menutitle,
 
 		"locs": locs,
 		"typs": typs,
@@ -112,6 +116,8 @@ func Itm_New(c *gin.Context) {
 }
 
 func Itm_GetById(c *gin.Context) {
+
+	menutitle := app_menu.GetMenuTitles()
 
 	itmid := c.Param("itmid")
 
@@ -124,6 +130,7 @@ func Itm_GetById(c *gin.Context) {
 	sthist, _ := sta_GetStatHistory(itmid)
 
 	itmw := app_models.ItemsWeb{
+	
 		Itmid: strconv.Itoa(itm.Itmid),
 
 		Description: strings.Trim(itm.Description, " "),
@@ -144,6 +151,7 @@ func Itm_GetById(c *gin.Context) {
 		"css":     "inv_lists.css",
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
+		"menutitle": menutitle,
 
 		"locs":  locs,
 		"typs":  typs,
@@ -164,6 +172,8 @@ func Itm_GetBySerial(c *gin.Context) {
 
 func Inv_Search(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
+
 	locs, _ := Loc_GetLocations()
 	typs, _ := Typ_GetTypes()
 	mans, _ := Man_GetManufacts()
@@ -176,6 +186,7 @@ func Inv_Search(c *gin.Context) {
 		"js":      "inv_search.js",
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
+		"menutitle": menutitle,
 
 		"locs":  locs,
 		"typs":  typs,
@@ -186,6 +197,8 @@ func Inv_Search(c *gin.Context) {
 
 func Inv_DoSearch(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
+
 	var search app_models.DoSearch
 	c.BindJSON(&search)
 
@@ -195,6 +208,7 @@ func Inv_DoSearch(c *gin.Context) {
 
 		"itmsw":  itmsw,
 		"c_itms": c_itms,
+		"menutitle": menutitle,
 	})
 }
 

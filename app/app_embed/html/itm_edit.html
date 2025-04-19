@@ -12,7 +12,7 @@
             <tr>
                 <td>
                     <select id="_locsel" class="edit-select" onchange="isEdit()">
-                        <option>Select Location</option>
+                        <option>Select {{ index .menutitle 0 }}</option>
                         {{ range .locs }}
                             <option value="{{ .Id }}" {{ if eq .Locname $.itmw.Loc }}selected{{ end }}>{{ .Locname }}</option>
                         {{ end }}
@@ -20,7 +20,7 @@
                 </td>
                 <td>
                     <select id="_typsel" class="edit-select" onchange="isEdit()">
-                        <option>Select Type</option>
+                        <option>Select {{ index .menutitle 1 }}</option>
                         {{ range .typs }}
                             <option value="{{ .Id }}" {{ if eq .Typname $.itmw.Typ }}selected{{ end }}>{{ .Typname }}</option>
                         {{ end }}
@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     <select id="_mansel" class="edit-select" onchange="isEdit()">
-                        <option>Select Manufact</option>
+                        <option>Select {{ index .menutitle 2 }}</option>
                         {{ range .mans }}
                             <option value="{{ .Id }}" {{ if eq .Manname $.itmw.Man }}selected{{ end }}>{{ .Manname }}</option>
                         {{ end }}

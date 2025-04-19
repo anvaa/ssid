@@ -8,7 +8,7 @@
         <tr>
             <td>
                 <select id="_locsel" class="edit-select"  onchange="isEdit()">
-                    <option value="">Select Location</option>
+                    <option value="">Select {{ index .menutitle 0 }}</option>
                     {{ if .locs }}
                     {{ range .locs }}
                     <option value="{{ .Id }}">{{ .Locname }}</option>
@@ -19,7 +19,7 @@
             <td>
                 
                 <select id="_typsel" class="edit-select"  onchange="isEdit()">
-                    <option value="">Select Type</option>
+                    <option value="">Select {{ index .menutitle 1 }}</option>
                     {{ if .typs }}
                     {{ range .typs }}
                     <option value="{{ .Id }}">{{ .Typname }}</option>
@@ -30,7 +30,7 @@
             <td>
                 
                 <select id="_mansel" class="edit-select"  onchange="isEdit()">
-                    <option value="">Select Manufact</option>
+                    <option value="">Select {{ index .menutitle 2 }}</option>
                     {{ if .mans }}
                     {{ range .mans }}
                     <option value="{{ .Id }}">{{ .Manname }}</option>
