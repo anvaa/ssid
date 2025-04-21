@@ -145,7 +145,7 @@ func Itm_MakeBARCode(itm_serial string, itmid any) error {
 	defer file.Close()
 
 	writer := oned.NewCode128Writer()
-	barCode, err := writer.Encode(itm_serial, gozxing.BarcodeFormat_CODE_128, 200, 35, nil)
+	barCode, err := writer.Encode(itm_serial, gozxing.BarcodeFormat_CODE_128, 145, 35, nil)
 	if err != nil {
 		return err
 	}

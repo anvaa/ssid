@@ -93,24 +93,6 @@ function itmDelete(itmid) {
     xhr.send();
 }
 
-function imgPrint(prtype) {
-    const serial = document.getElementById("_itmserial0").value;
-    const img = document.getElementById(prtype).src;
-    const win = window.open("", "_blank");
-
-    const printpage = `
-        <div style="width: 100%; text-align: center;">
-            <img src="${img}" style="width: 100%; margin-bottom: 0;" />
-            <div style="font-family: monospace; font-size: 48px; font-weight: bold; margin-top: 0;">${serial}</div>
-        </div>
-    `;
-
-    win.document.write(printpage);
-    win.document.close();
-    win.print();
-    win.close();
-}
-
 async function staAddStatusHist(itmid) {
     const uid = document.getElementById("_uid0").value;
     const stasel = document.getElementById("_stasel").value;
@@ -149,4 +131,78 @@ async function staAddStatusHist(itmid) {
     } catch (error) {
         alert("Error: " + error.message);
     }
+}
+
+function imgPrint(imgtype) {
+
+    const serial = document.getElementById("_itmserial0").value;
+    const img = document.getElementById(imgtype).src;
+    const win = window.open("", "_blank");
+
+    const imgConfig = {
+        _barimg: { height: '15mm', width: '100%', margin: '2mm', page_width: '1mm', page_height: '0mm', text_align: 'center' },
+        _qrimg: { height: '16mm', width:'16mm', margin: '2mm', page_width: '2mm', page_height: '0mm', text_align: 'left' },
+    };
+
+    const txtConfig = {
+        _barimg: `<div style="width: inherit;">${serial}</div>`,
+        _qrimg: "",
+    };
+
+    const img_height = imgConfig[imgtype].height;
+    const img_width = imgConfig[imgtype].width;
+    const img_margin = imgConfig[imgtype].margin;
+    const img_align = imgConfig[imgtype].text_align;
+    const img_txt = txtConfig[imgtype];
+
+    if (!img_height || !img_width || !img_margin) {
+        alert("Invalid image type");
+        return;
+    }
+
+    const printLabel = `
+        <html>
+            <head>
+                <title>Print</title>
+                <style>
+                    @media print {
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            margin: ${img_margin};
+                        }
+                        img {
+                        
+                            width: ${img_width};
+                            height: ${img_height};
+                            padding: 3px;
+                        }
+                        @page {
+                            size: ${imgConfig[imgtype].page_width} ${imgConfig[imgtype].page_height};
+                        }
+                        .print-label {
+                            
+                            width: 100%;
+                            height: 100%;
+                            margin: 0;
+                            text-align: ${img_align};
+                            font-size: 12px;
+                            font-family: monospace;
+                            font-weight: bold;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="print-label">
+                    <img src="${img}" />
+                    ${img_txt}
+                </div>
+            </body>
+        </html>`;
+
+    win.document.write(printLabel);
+    win.document.close();
+    win.print();
+    win.close();
 }
