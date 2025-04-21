@@ -15,7 +15,14 @@ document.addEventListener("keydown", function (event) {
             return;
         }
         selTxt = document.getElementById("_"+isedit+"txt0").value;
-        lstAddUpd();
+        
+        if (isedit == "mnu") {
+            mnuTitles();
+            return;
+        } else {
+            lstAddUpd();
+            return;
+        }
     }
 });
 

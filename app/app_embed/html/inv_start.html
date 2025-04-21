@@ -5,7 +5,7 @@
     </div> -->
     <div id="_div_search" class="div_search" style="border: 0px;">
         <input type="search" id="_txtSearchId" placeholder="Search Id" class="home-search" onkeydown="setSearch('ID')" />
-        <input type="search" id="_txtSearchSerial" placeholder="Search Serial" class="home-search" onkeydown="setSearch('SNR')" />
+        <input type="search" id="_txtSearchSerial" placeholder="Search {{ index .menutitle 3 }}" class="home-search" onkeydown="setSearch('SNR')" />
         <input type="hidden" id="_siteaction" value="SearchId" />
     </div>
     <div style="border: 0px;"></div>

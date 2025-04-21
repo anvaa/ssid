@@ -20,11 +20,14 @@ var appinfo = app_conf.AppInfo()
 
 func Inv_Start(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
+
 	c.HTML(http.StatusOK, "inv_start.html", gin.H{
 		"title": app_conf.AppName+" - Home",
 
 		"css": "inv_lists.css",
 		"js":  "inv_start.js",
+		"menutitle": menutitle,
 
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
