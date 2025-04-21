@@ -4,14 +4,13 @@ import (
 	"github.com/spf13/viper"
 
 	"log"
-
 )
 
 var (
-	mnuConf = *viper.New()
-	fileName string = "mnu.yaml"
+	mnuConf         = *viper.New()
+	fileName string = "menu.yaml"
 	fileType string = "yaml"
-	mnu      []string
+	menu     []string
 )
 
 func init() {
@@ -22,8 +21,8 @@ func init() {
 
 func WriteDefaultConfig(appRoot string) {
 	// SetDefault sets the default value for the key.
-	mnu := []string{"Location", "Type", "Manufact"}
-	mnuConf.SetDefault("menutitle", mnu)
+	menu = []string{"Location", "Type", "Manufact", "Serial", "Description", "Price"}
+	mnuConf.SetDefault("menutitle", menu)
 
 	err := mnuConf.WriteConfigAs(fileName)
 	if err != nil {
@@ -31,16 +30,16 @@ func WriteDefaultConfig(appRoot string) {
 	}
 }
 
-func ReadMenuConfig() {
+func ReadConfig() {
 	err := mnuConf.ReadInConfig()
 	if err != nil {
 		log.Fatal("Error reading", fileName)
 	}
 }
 
-func UpdMenuTitle(idx int, title string) {
-	mnu[idx] = title
-	mnuConf.Set("menutitle", mnu)
+func UpdMenuTitle(key int, value any) {
+	menu[key] = value.(string)
+	mnuConf.Set("menutitle", menu)
 	err := mnuConf.WriteConfig()
 	if err != nil {
 		log.Fatal("Error writing", fileName)
@@ -48,6 +47,6 @@ func UpdMenuTitle(idx int, title string) {
 }
 
 func GetMenuTitles() []string {
-	mnu = mnuConf.GetStringSlice("menutitle")
-	return mnu
+	menu = mnuConf.GetStringSlice("menutitle")
+	return menu
 }

@@ -12,7 +12,7 @@
             <tr>
                 <td>
                     <select id="_locsel" class="edit-select" onchange="isEdit()">
-                        <option>Select {{ index .menutitle 0 }}</option>
+                        <option>{{ index .menutitle 0 }}</option>
                         {{ range .locs }}
                             <option value="{{ .Id }}" {{ if eq .Locname $.itmw.Loc }}selected{{ end }}>{{ .Locname }}</option>
                         {{ end }}
@@ -20,7 +20,7 @@
                 </td>
                 <td>
                     <select id="_typsel" class="edit-select" onchange="isEdit()">
-                        <option>Select {{ index .menutitle 1 }}</option>
+                        <option>{{ index .menutitle 1 }}</option>
                         {{ range .typs }}
                             <option value="{{ .Id }}" {{ if eq .Typname $.itmw.Typ }}selected{{ end }}>{{ .Typname }}</option>
                         {{ end }}
@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     <select id="_mansel" class="edit-select" onchange="isEdit()">
-                        <option>Select {{ index .menutitle 2 }}</option>
+                        <option>{{ index .menutitle 2 }}</option>
                         {{ range .mans }}
                             <option value="{{ .Id }}" {{ if eq .Manname $.itmw.Man }}selected{{ end }}>{{ .Manname }}</option>
                         {{ end }}
@@ -37,17 +37,17 @@
             </tr>
             <tr>
                 <td>
-                    <div class="div-header">Serial</div>
+                    <div class="div-header">{{ index .menutitle 3 }}</div>
                     <input type="text" id="_itmserial0" class="edit-text" value="{{ .itmw.Serial }}" maxlength="50" onkeydown="isEdit()" />
                 </td>
                 <td>
-                    <div class="div-header">Price</div>
+                    <div class="div-header">{{ index .menutitle 5 }}</div>
                     <input type="text" id="_itmprice0" class="edit-text" value="{{ .itmw.Price }}" style="width: 80px;" maxlength="20" onkeydown="isEdit()" />
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <div class="div-header">Description</div>
+                    <div class="div-header">{{ index .menutitle 4 }}</div>
                     <textarea id="_itmdesc0" maxlength="255" class="edit-desc" onkeydown="isEdit()">{{ .itmw.Description }}</textarea>
                 </td>
             </tr>

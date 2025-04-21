@@ -22,12 +22,12 @@ func AppInit(app_folder string) error {
 	}
 
 	// check for app config file
-	configFile := app_folder + "/mnu.yaml"
+	configFile := app_folder + "/menu.yaml"
 	if !filefunc.IsExists(configFile) {
-		log.Println("No mnu.yaml file found. Creating", configFile)
+		log.Println("No menu.yaml file found. Creating", configFile)
 		app_menu.WriteDefaultConfig(app_folder)
 	}
-	app_menu.ReadMenuConfig() // read the config file
+	app_menu.ReadConfig() // read the config file
 
 	// check for app config file
 	configFile = app_folder + "/app.yaml"

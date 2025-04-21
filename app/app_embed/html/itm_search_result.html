@@ -1,12 +1,11 @@
-
-<div class="container" style="padding: 0px;margin: 0px;">
+<div>
     <table class="lst-table">
         <tr>
             <th class="th-itmlst">Id ({{ .c_itms }})</th> 
             <th class="th-itmlst">{{ index .menutitle 0 }}</th>
             <th class="th-itmlst">{{ index .menutitle 1 }}</th>
-            <th class="th-itmlst">Serial</th>
-            <th class="th-itmlst">Description</th>
+            <th class="th-itmlst">{{ index .menutitle 3 }}</th>
+            <th class="th-itmlst">{{ index .menutitle 4 }}</th>
             <th class="th-itmlst">Date</th>
             <th class="th-itmlst">Status</th>
             <th></th>

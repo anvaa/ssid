@@ -1,8 +1,21 @@
 body {
+    color: black;
     background-color: whitesmoke;
     padding: 5px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif, monospace;
+    
+}
+
+.home-search {
+    padding: 2px;
+    border-radius: 5px;
+    background-color: lightgrey;
     color: black;
+    text-align: left;
+
+    font-size: large;
+    
+    font-family: monospace;
 }
 
 .btn-hist, .hist-head, .qr-print-btn {
@@ -14,11 +27,11 @@ body {
 }
 
 .th-itmlst {
-    padding: 5px;
+    padding: 3px;
     text-align: left;
     font-family: monospace;
 
-    border-radius: 6px;
+    border-radius: 0px;
 
     font-weight: bold;
     color: white;
@@ -55,15 +68,26 @@ body {
     border-radius: 8px;
 }
 
-.div-new, .neworedit-header, .div-header, .div_search {
-    padding: 5px;
+.div-new, .neworedit-header, .div_search {
+    padding: 2px;
     border-radius: 5px;
     background-color: transparent;
     color: black;
     text-align: left;
 }
 
-.neworedit-header, .div-header, .div_search {
+.div-header {
+    padding: 0px;
+    background-color: transparent;
+    color: black;
+    
+    font-weight: bold;
+    font-family: monospace;
+    
+
+}
+
+.neworedit-header, .div_search {
     font-weight: bold;
 }
 
@@ -72,13 +96,8 @@ body {
     width: 300px;
 }
 
-.div-header {
-    font-family: monospace;
-    width: 80%;
-}
-
 .div_search {
-    width: 70%;
+    width: 100%;
     text-align: center;
 }
 

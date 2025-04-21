@@ -8,7 +8,7 @@
         <tr>
             <td>
                 <select id="_locsel" class="edit-select"  onchange="isEdit()">
-                    <option value="">Select {{ index .menutitle 0 }}</option>
+                    <option value="">{{ index .menutitle 0 }}</option>
                     {{ if .locs }}
                     {{ range .locs }}
                     <option value="{{ .Id }}">{{ .Locname }}</option>
@@ -19,7 +19,7 @@
             <td>
                 
                 <select id="_typsel" class="edit-select"  onchange="isEdit()">
-                    <option value="">Select {{ index .menutitle 1 }}</option>
+                    <option value="">{{ index .menutitle 1 }}</option>
                     {{ if .typs }}
                     {{ range .typs }}
                     <option value="{{ .Id }}">{{ .Typname }}</option>
@@ -30,7 +30,7 @@
             <td>
                 
                 <select id="_mansel" class="edit-select"  onchange="isEdit()">
-                    <option value="">Select {{ index .menutitle 2 }}</option>
+                    <option value="">{{ index .menutitle 2 }}</option>
                     {{ if .mans }}
                     {{ range .mans }}
                     <option value="{{ .Id }}">{{ .Manname }}</option>
@@ -41,17 +41,17 @@
         </tr>
         <tr>
             <td colspan="3">
-                <div class="div-header">Description</div>
+                <div class="div-header">{{ index .menutitle 4 }}</div>
                 <textarea id="_itmdesc0" maxlength="255" class="edit-desc" onkeydown="isEdit()">NIL</textarea>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="div-header">Price</div>
+                <div class="div-header">{{ index .menutitle 5 }}</div>
                 <input type="text" id="_itmprice0" class="edit-text" value="0" style="width: 80px;" onkeydown="isEdit()" />
             </td>
             <td>
-                <div class="div-header">Serial</div>
+                <div class="div-header">{{ index .menutitle 3 }}</div>
                 <input type="text" id="_itmserial0" class="edit-text" placeholder="Serial" tabindex="0" onkeydown="isEdit()" />
             </td>
         </tr>
