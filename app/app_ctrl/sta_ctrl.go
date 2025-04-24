@@ -1,7 +1,6 @@
 package app_ctrl
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -9,7 +8,7 @@ import (
 	"app/app_db"
 	"app/app_models"
 	"srv/global"
-	"usr"
+	users "usr"
 
 	"github.com/gin-gonic/gin"
 )
@@ -50,23 +49,22 @@ func Sta_AddUpd(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "success", "url": body.Url})
 }
 
-func Sta_Delete(c *gin.Context) {
-	var body struct {
-		Id  string `json:"id" binding:"required"`
-		Url string `json:"url"`
-	}
+func Sta_HistDelete(c *gin.Context) {
 
-	if err := c.ShouldBindJSON(&body); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+	staid := c.Param("staid")
+
+	if staid == "" {
+		c.JSON(400, gin.H{"error": "missing id"})
 		return
 	}
 
-	if err := sta_Delete(body.Id); err != nil {
+	if err := staHist_Delete(staid); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(200, gin.H{"message": "success", "url": body.Url})
+	c.JSON(200, gin.H{"message": "success"})
+
 }
 
 func sta_GetStatHistory(itmid any) ([]app_models.ItmStatHistWeb, error) {
@@ -77,13 +75,15 @@ func sta_GetStatHistory(itmid any) ([]app_models.ItmStatHistWeb, error) {
 
 	var staHistWeb []app_models.ItmStatHistWeb
 	for _, s := range stath {
-		updTime := s.UpdatedAt.Format("2006-01-02 15:04:05")
+		updTime := s.UpdatedAt.Format("2006-01-02")
 		uid_email, err := users.User_GetEmailById(s.UserId)
 		if err != nil {
 			uid_email = strconv.Itoa(s.UserId)
 		}
 
 		staHistWeb = append(staHistWeb, app_models.ItmStatHistWeb{
+			Id:      s.Id,
+			Staid:   s.Staid,
 			Staname: Sta_GetStatName(s.Staid),
 			Updated: updTime,
 			Uid:     uid_email,
@@ -114,13 +114,22 @@ func sta_AddUpd(sta app_models.StaNames) error {
 	return nil
 }
 
-func sta_Delete(id any) error {
+func staHist_Delete(id any) error {
+	// delete from status_history if exists
 	var stah app_models.Status_History
-	if err := app_db.AppDB.Where("staid = ?", id).First(&stah).Error; err == nil {
-		return errors.New("status is in use")
+	if err := app_db.AppDB.Where("id = ?", id).First(&stah).Error; err != nil {
+		if err.Error() != "record not found" {
+			return err
+		}
 	}
 
-	return app_db.AppDB.Where("id = ?", id).Delete(&app_models.StaNames{}).Error
+	// delete from status_history
+	if err := app_db.AppDB.Delete(&stah).Error; err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 func Sta_HistAdd(c *gin.Context) {

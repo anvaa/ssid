@@ -20,6 +20,7 @@ function setFocus() {
 }
 
 async function itmAddUpdate() {
+    
     if (document.getElementById("_isedit").value === "false") {
         alert("Nothing to add/update");
         return;
@@ -28,11 +29,11 @@ async function itmAddUpdate() {
     const locsel = document.getElementById("_locsel").value;
     const typsel = document.getElementById("_typsel").value;
     const mansel = document.getElementById("_mansel").value;
-    const stasel = document.getElementById("_stasel").value;
+    const stasel = document.getElementById("_stasel0").value;
     const itmid = document.getElementById("_itmid0").value;
     const itmuid = document.getElementById("_itmuid0").value;
-    const itmdesc = document.getElementById("_itmdesc0").value;
-    const itmserial = document.getElementById("_itmserial0").value;
+    let itmdesc = document.getElementById("_itmdesc0").value;
+    let itmserial = document.getElementById("_itmserial0").value;
     let itmprice = document.getElementById("_itmprice0").value;
 
     if (!locsel || !typsel || !mansel) {
@@ -40,9 +41,16 @@ async function itmAddUpdate() {
         return;
     }
 
-    if (!itmdesc || !itmserial || !itmprice) {
-        alert("Please fill in text fields");
-        return;
+    if (itmdesc === "") {
+        itmdesc = "Nil";
+    }
+
+    if (itmserial === "") {
+        itmserial = "Nil";
+    }
+
+    if (itmprice === "") {
+        itmprice = "0.0";
     }
 
     itmprice = itmprice.replace(",", ".").trim();
@@ -93,27 +101,23 @@ function itmDelete(itmid) {
     xhr.send();
 }
 
-async function staAddStatusHist(itmid) {
-    const uid = document.getElementById("_uid0").value;
-    const stasel = document.getElementById("_stasel").value;
-    const stacom = document.getElementById("_stacom0").value;
+async function addStatus() {
 
-    if (!stasel) {
+    const itmid = parseInt(document.getElementById("_itmid").value);
+    const staid = parseInt(document.getElementById("_stasel0").value);
+    const uid = parseInt(document.getElementById("_uid0").value);
+    let txt = document.getElementById("_comm0").value;
+
+    if (!staid) {
         alert("Please select a status");
         return;
     }
 
-    if (!stacom) {
-        alert("Please enter a comment");
-        return;
+    if (txt === "") {
+        txt = "Nil";
     }
 
-    const data = {
-        itmid: parseInt(itmid),
-        uid: parseInt(uid),
-        staid: parseInt(stasel),
-        txt: stacom,
-    };
+    const data = { itmid, uid, staid, txt };
 
     try {
         const response = await fetch("/sta/hist/add", {
@@ -122,15 +126,40 @@ async function staAddStatusHist(itmid) {
             body: JSON.stringify(data),
         });
 
-        const responseData = await response.json();
         if (!response.ok) {
+            const responseData = await response.json();
             throw new Error(responseData.Error);
         }
 
         window.location.reload();
     } catch (error) {
-        alert("Error: " + error.message);
+        alert(`Error: ${error.message}`);
     }
+}
+
+async function delStatus(stahist_id) {
+
+    const staid = document.getElementById("_staid0").value;
+
+    if (staid === "1212090603") {
+        alert("Cannot delete this status");
+        return;
+    }
+
+    if (!confirm("Are you sure you want to delete this status ?")) {
+        return;
+    }
+    
+    const url = `/sta/delete/${stahist_id}`;
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.reload();
+        }
+    };
+    xhr.send();
+
 }
 
 function imgPrint(imgtype) {
@@ -172,7 +201,6 @@ function imgPrint(imgtype) {
                             margin: ${img_margin};
                         }
                         img {
-                        
                             width: ${img_width};
                             height: ${img_height};
                             padding: 3px;
@@ -181,7 +209,6 @@ function imgPrint(imgtype) {
                             size: ${imgConfig[imgtype].page_width} ${imgConfig[imgtype].page_height};
                         }
                         .print-label {
-                            
                             width: 100%;
                             height: 100%;
                             margin: 0;

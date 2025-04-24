@@ -6,8 +6,9 @@
     <div class="neworedit-header">Edit item {{ .itmw.Itmid }}</div>
 </div>
 <input type="hidden" id="_itmid" value="{{ .itmw.Itmid }}" />
-<div class="flex-container">
-    <div class="lst-box" style="width: 480px;">
+<div class="flex-container" style="flex-wrap: wrap;">
+    <div class="lst-box" style="width: 480px; border: 0px;">
+        <div class="lst-box">
         <table>
             <tr>
                 <td>
@@ -64,8 +65,36 @@
                 </td>
             </tr>
         </table>
-        <div class="flex-container">
+        </div>
 
+        <div class="lst-box" style="margin-top: 8px">
+            <div class="td-hist-hisdate" style="border: 0px;">New Status</div>
+            <table style="width: 100%;">
+                <tr>
+                    <td>
+                        <select id="_stasel0" class="sta-select">
+                            <option value="">Status</option>
+                            {{ range .stats }}
+                            <option value="{{ .Id }}">{{ .Staname }}</option>
+                            {{ end }}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea id="_comm0" maxlength="255" class="sta-txtarea"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="hidden" id="_uid0" value="{{ .user.Id }}" />
+                        <input type="button" value="Add Status" style="width: 160px;" class="lst-btn" onclick="addStatus()" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="flex-container" style="margin-top: 8px;">
             <div class="div-qr">
                 <table>
                     <tr>
@@ -104,49 +133,28 @@
         <div style="width: 250px;">
             <div>
                 {{ range .statw }}
-                <div class="lst-box" style="margin-top: 3px;">
+                <div class="lst-box" style="margin-top: 3px; padding: 5px;">
                     <table style="width: 100%;">
                         <tr>
+                            <td colspan="2" class="td-hist-hisdate" style="text-align: center; border: 0;">{{ .Staname }}</td>                        </tr>
+                        <tr>
+                            <td class="td-hist" style="border: 0;">📅 {{ .Updated }}</td>
+                            {{ if ne .Staid 1212090603 }}
+                            <input type="hidden" id="_staid0" value="{{ .Staid }}" />
+                            <td class="td-hist" style="border: 0; cursor: pointer; text-align: right;" title="Delete" onclick="delStatus('{{ .Id }}')">🆑</td>
+                            {{ end }}
+                        </tr>
+                        <tr>
                             <td colspan="2">
-                                <div class="td-hist-hisdate">📅 {{ .Updated }}</div>
+                                <div class="td-hist" style="border: 0;">👨‍⚕️ {{ .Uid }}</div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="td-hist">:{{ .Staname }}</td>
-                            <td class="td-hist">👨‍⚕️ {{ .Uid }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="td-hist">{{ .Comment }}</td>
+                            <td colspan="2" class="td-hist" style="border: 0;">{{ .Comment }}</td>
                         </tr>
                     </table>
                 </div>
                 {{ end }}
-            </div>
-            <div class="lst-box" style="margin-top: 3px;">
-                <div class="td-hist-hisdate" style="border: 0px;">New Status</div>
-                <table style="width: 100%;">
-                    <tr>
-                        <td>
-                            <select id="_stasel" class="sta-select">
-                                <option value="">Status</option>
-                                {{ range .stats }}
-                                <option value="{{ .Id }}">{{ .Staname }}</option>
-                                {{ end }}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <textarea id="_stacom0" maxlength="255" class="sta-txtarea"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="hidden" id="_uid0" value="{{ .user.Id }}" />
-                            <input type="button" value="Add Status" class="lst-btn" style="width: 100%;" onclick="staAddStatusHist('{{ .itmw.Itmid }}')" />
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>

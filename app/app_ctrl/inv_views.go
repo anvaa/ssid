@@ -80,6 +80,7 @@ func Inv_Tools(c *gin.Context) {
 
 func Inv_Stats(c *gin.Context) {
 
+	menutitle := app_menu.GetMenuTitles()
 	stats, err := GetStats()
 	if err != nil {
 		fmt.Println(err)
@@ -92,6 +93,8 @@ func Inv_Stats(c *gin.Context) {
 		"js":      "inv_tools.js",
 		"user":    c.Keys["user"],
 		"appinfo": appinfo,
+		"mnuitm0": menutitle[0],
+		"mnuitm5": menutitle[5],
 
 		"stats": stats,
 	})

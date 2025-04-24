@@ -85,7 +85,12 @@ func Itm_AddUpd(c *gin.Context) {
 func Itm_Delete(c *gin.Context) {
 	// Get the item ID
 	itmid := c.Param("itmid")
-
+	
+	if itmid == "" {
+		c.JSON(400, gin.H{"error": "missing itmid"})
+		return
+	}
+	
 	// Delete the item
 	err := app_db.Itm_Delete(itmid)
 	if err != nil {

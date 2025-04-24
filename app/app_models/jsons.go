@@ -27,6 +27,8 @@ type ItmSearch struct {
 }
 
 type ItmStatHistWeb struct {
+	Id      int    `json:"staid"`
+	Staid   int    `json:"staid"`
 	Staname string `json:"staname"`
 	Updated string `json:"updated"`
 	Uid     string `json:"uid"`
@@ -34,10 +36,10 @@ type ItmStatHistWeb struct {
 }
 
 type DoSearch struct {
-	Locid int `json:"locid"`
-	Typid int `json:"typid"`
-	Manid int `json:"manid"`
-	Staid int `json:"staid"`
+	Locid int    `json:"locid"`
+	Typid int    `json:"typid"`
+	Manid int    `json:"manid"`
+	Staid int    `json:"staid"`
 	Fdate string `json:"fdate"`
 	Tdate string `json:"tdate"`
 }

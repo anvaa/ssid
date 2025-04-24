@@ -58,10 +58,17 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 }
 
 .configbox {
-    border: 2px solid grey;
-    border-radius: 5px;
+    border: 2px solid black;
+    border-radius: 8px;
     padding: 3px;
     width: fit-content;
-    background-color: lightgrey;
+    background-color: rgb(169, 167, 167);
     color: black;
+}
+
+.menu-logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    margin-top: 2px;
 }

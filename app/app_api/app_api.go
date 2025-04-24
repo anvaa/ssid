@@ -77,7 +77,7 @@ func App_Api(r *gin.Engine) *gin.Engine {
 		staGrp.Use(middleware.IsAuth)
 
 		staGrp.POST("/addupd", app_ctrl.Sta_AddUpd)
-		staGrp.DELETE("/delete", app_ctrl.Sta_Delete)
+		staGrp.DELETE("/delete/:staid", app_ctrl.Sta_HistDelete)
 
 		staGrp.POST("/hist/add", app_ctrl.Sta_HistAdd)
 
