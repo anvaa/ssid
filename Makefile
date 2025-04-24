@@ -30,4 +30,8 @@ runapp:
 	./bin/$(buildname)_$(os).$(arch)
 
 clean:
-	rm bin/$(buildname)_*
+ 	#if file exists, delete Inventory
+	@if [ -f bin/$(buildname)_$(os).$(arch) ]; then \
+		rm bin/$(buildname)_$(os).$(arch); \
+	fi
+	
