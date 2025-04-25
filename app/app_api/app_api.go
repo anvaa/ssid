@@ -1,7 +1,7 @@
 package app_api
 
 import (
-	"log"
+	
 	"srv/srv_conf"
 	"srv/web/middleware"
 
@@ -15,11 +15,10 @@ func App_Api(r *gin.Engine) *gin.Engine {
 
 	// SET app paths
 	static_dir := srv_conf.StaticDir
-	log.Println("Static App folder:", static_dir)
 
 	r.Static("/css", static_dir+"/css")
 	r.Static("/js", static_dir+"/js")
-	r.Static("/media", static_dir+"/media")
+	// r.Static("/media", static_dir+"/media")
 
 	r.Static("/assets", srv_conf.AssetsDir)
 	r.Static("/qr_img", srv_conf.QRImgDir)

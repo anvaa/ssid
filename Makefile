@@ -15,9 +15,6 @@ build: clean
 	# Build for local platform
 	CGO_ENABLED=1 go build -o bin/$(buildname)_$(os).$(arch) -ldflags="-s -w -X 'app/app_conf.AppName=$(appname)' -X 'app/app_conf.AppNameLong=$(appnamelong)'" cmd/main.go
 
-	# Build for linux amd64
-	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o bin/$(buildname)_linux.amd64 -ldflags="-s -w -X 'app/app_conf.AppName=$(appname)' -X 'app/app_conf.AppNameLong=$(appnamelong)'" cmd/main.go
-
 	# if file exists, copy it to the app bundle
 	@if [ -f $(appbundlepath)/ssid ]; then \
 		cp bin/$(buildname)_$(os).$(arch) $(appbundlepath)/ssid; \

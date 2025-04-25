@@ -10,6 +10,7 @@ import (
 //go:embed css/*
 //go:embed html/*
 //go:embed js/*
+//go:embed media/*
 var static embed.FS
 
 func User_EmbedFiles() error {

@@ -2,14 +2,23 @@ package user_api
 
 import (
 
+	"log"
+
 	"github.com/gin-gonic/gin"
 
 	"srv/web/middleware"
+	"srv/srv_conf"
+
 	"usr"
 
 )
 
 func User_Api(r *gin.Engine) *gin.Engine {
+
+	// SET app paths
+	static_dir := srv_conf.StaticDir
+	log.Println("Static App folder:", static_dir)
+	r.Static("/media", static_dir+"/media")
 
 	// SET user paths
 	r.GET("/", users.Root)

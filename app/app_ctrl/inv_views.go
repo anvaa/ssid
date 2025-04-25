@@ -23,7 +23,7 @@ func Inv_Start(c *gin.Context) {
 	menutitle := app_menu.GetMenuTitles()
 
 	c.HTML(http.StatusOK, "inv_start.html", gin.H{
-		"title": app_conf.AppName+" - Home",
+		"title": app_conf.AppName,
 
 		"css": "inv_lists.css",
 		"js":  "inv_start.js",
