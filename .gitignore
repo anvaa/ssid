@@ -8,10 +8,9 @@
 tmp/*
 
 # app generated files #
-app.crt
-app.key
+*.crt
+*.key
 
-runme.sh
 /static
 /data
 /assets

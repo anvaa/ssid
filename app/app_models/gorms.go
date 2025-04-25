@@ -52,4 +52,12 @@ type Items struct {
 	Staid int `gorm:"foreignKey:StaNamesId" json:"staid"`
 
 	UserId int `gorm:"foreignKey:UserId" json:"uid"`
+
+	LocNames LocNames `gorm:"foreignKey:Locid;references:Id" json:"locnames"`
+	TypNames TypNames `gorm:"foreignKey:Typid;references:Id" json:"typnames"`
+	ManNames ManNames `gorm:"foreignKey:Manid;references:Id" json:"mannames"`
+	StaNames StaNames `gorm:"foreignKey:Staid;references:Id" json:"stanames"`
+
+	Status_History []Status_History `gorm:"foreignKey:Itmid;references:Id" json:"status_history"`
+
 }
